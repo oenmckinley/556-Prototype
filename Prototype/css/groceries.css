@@ -1,0 +1,43 @@
+.groceries {
+    width: 100%;
+    margin: 3%;
+
+}
+
+.section-groceries {
+    display: inline-block;
+    vertical-align: middle;
+    height: 900px;
+}
+
+.sub-groceries {
+    background-color: #FFF4F0;
+    border-radius: 16px;
+    margin: 0 0 20px 0;
+}
+
+.left-groceries {
+    width: 55%;
+    margin: 1em 3% 1em 0;
+}
+
+.right-groceries {
+    width: 35%;
+}
+
+.recipe-groceries {
+    background-color: #FFF4F0;
+    height: 700px;
+    width: 100%;
+    border-radius: 16px;
+}
+
+.add-groceries {
+    width: 20%;
+    margin: 0 40% 0 40%;
+}
+
+.chunk-groceries {
+    height: 25%;
+    margin: 10px 5% 10px 5%;
+}
