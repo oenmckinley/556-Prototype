@@ -1,31 +1,42 @@
-
+body {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
 
 .main_head {
     width: 100%;
     font-size: large;
     display: inline-block;
-    padding: 0 0 0 3%;
     margin: 0;
 }
 
 .logo {
     vertical-align: middle;
-    margin: 1em 3% 1em 0;
+    margin: 1em 5% 1em 0;
     width: 23%;
 }
 
-.btn_header {
-    background-color: #FFFFFF;
-    border: none;
-    color: #000000;
-    padding: 15px 32px;
+button {
+    border-radius: 8px;
+    border-width: 3px;
+    padding: 15px 24px;
     text-align: center;
     text-decoration: none;
-    font-size: 30px;
+    border-color: black;
+    color: white;
+    font-size: 24px;
     vertical-align: middle;
-    width: 20%;
-    margin: 1em 3% 1em 0;
+    width: 150px;
+}
 
+.btn_header {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    font-size: 30px;
+    width: 15%;
+    margin: 1em 7% 1em 0;
 }
 
 .btn_header:hover {
@@ -34,4 +45,60 @@
 
 .bold {
     font-weight: 700;
+}
+
+.btn_rem {
+    background-color: #F36F6F;
+}
+
+.btn_rem:hover {
+    background-color: white;
+    color: #F36F6F;
+    border-color: #F36F6F;
+}
+
+.btn_filters {
+    background-color: #FBC02D;
+}
+
+.btn_filters:hover {
+    background-color: white;
+    color: #FBC02D;
+    border-color: #FBC02D;
+}
+
+.btn_add {
+    background-color: #69E17F;
+}
+
+.btn_add:hover {
+    background-color: white;
+    color: #69E17F;
+    border-color: #69E17F;
+}
+
+h1 {
+    font-size: 56px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+a {
+    border-radius: 8px;
+    border-width: 3px;
+    padding: 15px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-color: black;
+    color: white;
+    font-size: 24px;
+    vertical-align: middle;
+    width: 150px;
+}
+
+input {
+    font-size: 24px;
+    font-family: Arial, sans-serif;
 }
