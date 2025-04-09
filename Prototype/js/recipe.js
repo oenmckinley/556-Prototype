@@ -24,11 +24,6 @@ function renderRecipes(recipes) {
       <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
       <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
       <p><strong>Restrictions:</strong> ${restrictions.join(", ")}</p>
-      <p><strong>Utensils:</strong> ${utensils.join(", ")}</p>
-      <ul><strong>Ingredients:</strong>
-        ${ingredients.map(i => `<li>${i}</li>`).join("")}
-      </ul>
-      <p><strong>Instructions:</strong><br>${instruction.replace(/\n/g, "<br>")}</p>
       <button>Add</button>
     `;
 
