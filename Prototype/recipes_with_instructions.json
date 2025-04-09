@@ -1,0 +1,940 @@
+[
+  {
+    "title": "Roasted Chicken",
+    "cost": "$13",
+    "time": "59",
+    "ingredients": [
+      "Olive Oil",
+      "Salt",
+      "Chicken"
+    ],
+    "img": "",
+    "preference": [
+      "High Protein"
+    ],
+    "restriction": [
+      "Kosher"
+    ],
+    "utensils": [
+      "Oven",
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the roasted chicken as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Avocado Toast",
+    "cost": "$5",
+    "time": "60",
+    "ingredients": [
+      "Egg",
+      "Avocado",
+      "Bread",
+      "Pepper"
+    ],
+    "img": "",
+    "preference": [
+      "American"
+    ],
+    "restriction": [],
+    "utensils": [
+      "toaster"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the avocado toast as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Spaghetti Bolognese",
+    "cost": "$13",
+    "time": "25",
+    "ingredients": [
+      "Basil",
+      "Eggs",
+      "Cheese",
+      "Spinach",
+      "Pasta",
+      "Butter"
+    ],
+    "img": "",
+    "preference": [
+      "Italian"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Pan"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the spaghetti bolognese as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Caesar Salad",
+    "cost": "$7",
+    "time": "10",
+    "ingredients": [
+      "Romaine Lettuce",
+      "Olive Oil",
+      "Parmesan Cheese",
+      "Croutons",
+      "Caesar Dressing"
+    ],
+    "img": "",
+    "preference": [
+      "Salad"
+    ],
+    "restriction": [
+      "Vegan"
+    ],
+    "utensils": [],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the caesar salad as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Pancakes",
+    "cost": "$9",
+    "time": "15",
+    "ingredients": [
+      "Flour",
+      "Butter",
+      "Sugar",
+      "Milk",
+      "Salt"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "Dessert"
+    ],
+    "restriction": [
+      "Keto"
+    ],
+    "utensils": [
+      "Pan"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the pancakes as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Grilled Cheese",
+    "cost": "$10",
+    "time": "53",
+    "ingredients": [
+      "Cheese",
+      "Oil"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "Dessert"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Oven",
+      "Pan"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the grilled cheese as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Beef Tacos",
+    "cost": "$12",
+    "time": "27",
+    "ingredients": [
+      "Salt",
+      "Beef",
+      "Butter",
+      "Taco Shells",
+      "Tofu"
+    ],
+    "img": "",
+    "preference": [
+      "French",
+      "Appetizer"
+    ],
+    "restriction": [
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Toaster",
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the beef tacos as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Sushi Roll",
+    "cost": "$13",
+    "time": "47",
+    "ingredients": [
+      "Onion",
+      "Rice",
+      "Eggs",
+      "Apple"
+    ],
+    "img": "",
+    "preference": [
+      "French",
+      "African"
+    ],
+    "restriction": [
+      "Kosher",
+      "Diabetes"
+    ],
+    "utensils": [
+      "Wok",
+      "Toaster",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the sushi roll as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Veggie Stir Fry",
+    "cost": "$12",
+    "time": "10",
+    "ingredients": [
+      "Butter",
+      "Rice",
+      "Spinach",
+      "Salt",
+      "Eggs"
+    ],
+    "img": "",
+    "preference": [
+      "Korean",
+      "Asian"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the veggie stir fry as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Mushroom Risotto",
+    "cost": "$10",
+    "time": "24",
+    "ingredients": [
+      "Mushrooms",
+      "Cheese",
+      "Salt"
+    ],
+    "img": "",
+    "preference": [
+      "French"
+    ],
+    "restriction": [
+      "Diabetes"
+    ],
+    "utensils": [
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the mushroom risotto as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Fruit Bowl",
+    "cost": "$5",
+    "time": "19",
+    "ingredients": [
+      "Spinach",
+      "Avocado",
+      "Onion",
+      "Tofu",
+      "Banana"
+    ],
+    "img": "",
+    "preference": [
+      "Dessert",
+      "Japanese"
+    ],
+    "restriction": [
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the fruit bowl as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Tomato Soup",
+    "cost": "$10",
+    "time": "15",
+    "ingredients": [
+      "Apple",
+      "Salt",
+      "Banana",
+      "Basil",
+      "Fish"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "Japanese"
+    ],
+    "restriction": [
+      "Diabetes",
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the tomato soup as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Lentil Curry",
+    "cost": "$12",
+    "time": "26",
+    "ingredients": [
+      "Apple",
+      "Rice",
+      "Garlic"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "French"
+    ],
+    "restriction": [
+      "Kosher",
+      "Dairy-free"
+    ],
+    "utensils": [
+      "Grill",
+      "Wok",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the lentil curry as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Stuffed Peppers",
+    "cost": "$6",
+    "time": "8",
+    "ingredients": [
+      "Olive Oil",
+      "Rice",
+      "Eggs",
+      "Flour",
+      "Beef"
+    ],
+    "img": "",
+    "preference": [
+      "African",
+      "Japanese"
+    ],
+    "restriction": [
+      "Dairy-free"
+    ],
+    "utensils": [
+      "Wok",
+      "Grill",
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the stuffed peppers as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Fried Rice",
+    "cost": "$3",
+    "time": "27",
+    "ingredients": [
+      "Banana",
+      "Tomato",
+      "Bread"
+    ],
+    "img": "",
+    "preference": [
+      "Asian",
+      "Korean"
+    ],
+    "restriction": [
+      "Keto"
+    ],
+    "utensils": [
+      "Wok",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the fried rice as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Mac and Cheese",
+    "cost": "$9",
+    "time": "45",
+    "ingredients": [
+      "Olive Oil",
+      "Onion",
+      "Banana"
+    ],
+    "img": "",
+    "preference": [
+      "African"
+    ],
+    "restriction": [
+      "Kosher",
+      "Dairy-free"
+    ],
+    "utensils": [
+      "Oven",
+      "Grill",
+      "Blender"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the mac and cheese as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Shakshuka",
+    "cost": "$8",
+    "time": "29",
+    "ingredients": [
+      "Flour",
+      "Eggs",
+      "Fish",
+      "Mushrooms"
+    ],
+    "img": "",
+    "preference": [
+      "Japanese",
+      "Korean"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the shakshuka as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Kimchi Stew",
+    "cost": "$7",
+    "time": "27",
+    "ingredients": [
+      "Tofu",
+      "Basil",
+      "Coconut Milk"
+    ],
+    "img": "",
+    "preference": [
+      "African",
+      "Appetizer"
+    ],
+    "restriction": [
+      "Kosher"
+    ],
+    "utensils": [
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the kimchi stew as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Spring Rolls",
+    "cost": "$11",
+    "time": "43",
+    "ingredients": [
+      "Avocado",
+      "Tomato",
+      "Cheese",
+      "Garlic",
+      "Pepper",
+      "Spinach"
+    ],
+    "img": "",
+    "preference": [
+      "French"
+    ],
+    "restriction": [
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the spring rolls as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Tiramisu",
+    "cost": "$3",
+    "time": "60",
+    "ingredients": [
+      "Butter",
+      "Avocado",
+      "Milk",
+      "Rice",
+      "Salt"
+    ],
+    "img": "",
+    "preference": [
+      "French"
+    ],
+    "restriction": [
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Pan",
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the tiramisu as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Chicken Teriyaki",
+    "cost": "$6",
+    "time": "56",
+    "ingredients": [
+      "Tofu",
+      "Olive Oil",
+      "Bread",
+      "Milk",
+      "Tomato",
+      "Chicken"
+    ],
+    "img": "",
+    "preference": [
+      "Dessert",
+      "Appetizer"
+    ],
+    "restriction": [
+      "Vegan"
+    ],
+    "utensils": [
+      "Wok"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the chicken teriyaki as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Falafel Wrap",
+    "cost": "$8",
+    "time": "57",
+    "ingredients": [
+      "Spinach",
+      "Mushrooms",
+      "Flour",
+      "Cheese",
+      "Eggs",
+      "Apple"
+    ],
+    "img": "",
+    "preference": [
+      "Korean"
+    ],
+    "restriction": [
+      "Keto",
+      "Vegan"
+    ],
+    "utensils": [
+      "Oven",
+      "Pan",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the falafel wrap as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Clam Chowder",
+    "cost": "$8",
+    "time": "31",
+    "ingredients": [
+      "Cheese",
+      "Garlic",
+      "Spinach",
+      "Chicken",
+      "Beef",
+      "Coconut Milk"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "French"
+    ],
+    "restriction": [
+      "Diabetes",
+      "Vegan"
+    ],
+    "utensils": [
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the clam chowder as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Eggplant Parmesan",
+    "cost": "$7",
+    "time": "11",
+    "ingredients": [
+      "Salt",
+      "Tomato",
+      "Chicken",
+      "Onion",
+      "Milk"
+    ],
+    "img": "",
+    "preference": [
+      "Dessert"
+    ],
+    "restriction": [
+      "Vegetarian",
+      "Dairy-free"
+    ],
+    "utensils": [
+      "Pot",
+      "Toaster",
+      "Wok"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the eggplant parmesan as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Bulgogi Bowl",
+    "cost": "$10",
+    "time": "27",
+    "ingredients": [
+      "Apple",
+      "Fish",
+      "Banana"
+    ],
+    "img": "",
+    "preference": [
+      "American"
+    ],
+    "restriction": [
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Oven",
+      "Grill",
+      "Wok"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the bulgogi bowl as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Apple Pie",
+    "cost": "$6",
+    "time": "43",
+    "ingredients": [
+      "Salt",
+      "Olive Oil",
+      "Basil",
+      "Banana"
+    ],
+    "img": "",
+    "preference": [
+      "Japanese"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Pot",
+      "Air-fryer",
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the apple pie as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Fufu and Soup",
+    "cost": "$4",
+    "time": "6",
+    "ingredients": [
+      "Avocado",
+      "Coconut Milk",
+      "Tomato",
+      "Cheese",
+      "Pepper"
+    ],
+    "img": "",
+    "preference": [
+      "American",
+      "Japanese"
+    ],
+    "restriction": [
+      "Diabetes"
+    ],
+    "utensils": [
+      "Wok",
+      "Toaster",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the fufu and soup as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Naan Pizza",
+    "cost": "$11",
+    "time": "31",
+    "ingredients": [
+      "Banana",
+      "Rice",
+      "Garlic",
+      "Onion",
+      "Apple"
+    ],
+    "img": "",
+    "preference": [
+      "American",
+      "French"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Pan",
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the naan pizza as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Okonomiyaki",
+    "cost": "$13",
+    "time": "48",
+    "ingredients": [
+      "Fish",
+      "Olive Oil",
+      "Salt"
+    ],
+    "img": "",
+    "preference": [
+      "African"
+    ],
+    "restriction": [
+      "Vegetarian",
+      "Keto"
+    ],
+    "utensils": [
+      "Toaster",
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the okonomiyaki as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Chicken Alfredo",
+    "cost": "$15",
+    "time": "38",
+    "ingredients": [
+      "Beef",
+      "Pepper",
+      "Apple",
+      "Olive Oil",
+      "Bread"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "French"
+    ],
+    "restriction": [
+      "Diabetes"
+    ],
+    "utensils": [
+      "Pot"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the chicken alfredo as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Vegan Chili",
+    "cost": "$13",
+    "time": "43",
+    "ingredients": [
+      "Banana",
+      "Tofu",
+      "Olive Oil",
+      "Flour",
+      "Bread",
+      "Chicken"
+    ],
+    "img": "",
+    "preference": [
+      "American",
+      "Korean"
+    ],
+    "restriction": [
+      "Vegan"
+    ],
+    "utensils": [
+      "Pan",
+      "Wok",
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the vegan chili as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Pad Thai",
+    "cost": "$10",
+    "time": "21",
+    "ingredients": [
+      "Chicken",
+      "Pepper",
+      "Basil",
+      "Avocado"
+    ],
+    "img": "",
+    "preference": [
+      "Dessert",
+      "Korean"
+    ],
+    "restriction": [
+      "Dairy-free",
+      "Vegetarian"
+    ],
+    "utensils": [
+      "Toaster",
+      "Oven",
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the pad thai as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Bibimbap",
+    "cost": "$5",
+    "time": "50",
+    "ingredients": [
+      "Cheese",
+      "Apple",
+      "Basil"
+    ],
+    "img": "",
+    "preference": [
+      "Asian"
+    ],
+    "restriction": [
+      "Vegan",
+      "Kosher"
+    ],
+    "utensils": [
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the bibimbap as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Gnocchi with Pesto",
+    "cost": "$11",
+    "time": "8",
+    "ingredients": [
+      "Chicken",
+      "Butter",
+      "Cheese"
+    ],
+    "img": "",
+    "preference": [
+      "American",
+      "Appetizer"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Pan"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the gnocchi with pesto as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Jambalaya",
+    "cost": "$10",
+    "time": "19",
+    "ingredients": [
+      "Tomato",
+      "Onion",
+      "Flour",
+      "Rice"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer",
+      "Korean"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Oven"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the jambalaya as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Plantain Chips",
+    "cost": "$14",
+    "time": "14",
+    "ingredients": [
+      "Fish",
+      "Avocado",
+      "Butter",
+      "Tofu",
+      "Beef"
+    ],
+    "img": "",
+    "preference": [
+      "Japanese"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Air-fryer"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the plantain chips as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Crepes",
+    "cost": "$6",
+    "time": "7",
+    "ingredients": [
+      "Tomato",
+      "Mushrooms",
+      "Pepper",
+      "Cheese",
+      "Basil"
+    ],
+    "img": "",
+    "preference": [
+      "Japanese"
+    ],
+    "restriction": [
+      "Kosher",
+      "Keto"
+    ],
+    "utensils": [
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the crepes as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Greek Salad",
+    "cost": "$6",
+    "time": "43",
+    "ingredients": [
+      "Avocado",
+      "Eggs",
+      "Chicken",
+      "Bread",
+      "Milk",
+      "Rice"
+    ],
+    "img": "",
+    "preference": [
+      "Asian"
+    ],
+    "restriction": [
+      "Diabetes",
+      "Kosher"
+    ],
+    "utensils": [
+      "Pot",
+      "Pan"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the greek salad as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "Pumpkin Soup",
+    "cost": "$9",
+    "time": "47",
+    "ingredients": [
+      "Beef",
+      "Olive Oil",
+      "Tofu",
+      "Salt"
+    ],
+    "img": "",
+    "preference": [
+      "Dessert",
+      "Asian"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Grill",
+      "Pan",
+      "Blender"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the pumpkin soup as described.\nStep 3: Serve and enjoy!"
+  },
+  {
+    "title": "French Toast",
+    "cost": "$7",
+    "time": "49",
+    "ingredients": [
+      "Chicken",
+      "Pepper",
+      "Butter",
+      "Flour",
+      "Basil"
+    ],
+    "img": "",
+    "preference": [
+      "Appetizer"
+    ],
+    "restriction": [],
+    "utensils": [
+      "Pan",
+      "Grill"
+    ],
+    "instruction": "Step 1: Prepare the ingredients.\nStep 2: Cook the french toast as described.\nStep 3: Serve and enjoy!"
+  }
+]
