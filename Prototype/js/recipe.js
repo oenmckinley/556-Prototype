@@ -2,6 +2,7 @@ fetch("../recipes_with_instructions.json")
     .then((res) => res.json())
     .then((recipes) => {
         renderRecipes(recipes);
+        addIngredients(recipes);
     });
 
 function renderRecipes(recipes) {

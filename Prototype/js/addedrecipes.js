@@ -1,10 +1,15 @@
 let addedRecipes = sessionStorage.getItem('addedRecipes');
 if (addedRecipes != null) addedRecipes = addedRecipes.split(',');
-else if (addedRecipes == null) addedRecipes = [];
+else addedRecipes = [];
 
 let scheduledRecipes = sessionStorage.getItem('scheduledRecipes');
 if (scheduledRecipes != null) scheduledRecipes = scheduledRecipes.split(',');
-else if (scheduledRecipes == null) scheduledRecipes = [];
+else scheduledRecipes = [];
+
+let allIngredients = sessionStorage.getItem('allIngredients');
+if (allIngredients != null) allIngredients = JSON.parse(allIngredients);
+else allIngredients = {};
+
 
 function addRecipe(title, cid) {
     if (!addedRecipes.includes(title)) {
@@ -40,5 +45,35 @@ function remRecipe(title, cid) {
 
     sessionStorage.setItem('addedRecipes', addedRecipes);
     console.log(addedRecipes)
+}
+
+function getAddedGroceries() {
+    console.log(allIngredients)
+    let groceries = [];
+    addedRecipes.forEach((recipe) => {
+        allIngredients[recipe].forEach((ingredient) => {
+            if (!groceries.includes(ingredient)) groceries.push(ingredient);
+        });
+    });
+    return groceries;
+}
+
+function getScheduledGroceries() {
+    let groceries = [];
+    scheduledRecipes.forEach((recipe) => {
+        allIngredients[recipe].forEach((ingredient) => {
+            if (!groceries.includes(ingredient)) groceries.push(ingredient);
+        });
+    });
+    return groceries;
 
 }
+
+function addIngredients(recipes) {
+    allIngredients = {};
+    recipes.forEach((recipe) => {
+        allIngredients[recipe.title] = recipe.ingredients;
+    });
+    sessionStorage.setItem('allIngredients', JSON.stringify(allIngredients));
+}
+

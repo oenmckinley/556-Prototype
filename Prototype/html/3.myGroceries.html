@@ -34,14 +34,23 @@
                 <div class="grid-groceries" id="weekGrid"></div>
             </div>
         </div>
-        <button class="btn_add add-groceries"> Make Grocery List! </button>
+        <button class="btn_add add-groceries" onclick="renderGroceryList()"> Make Grocery List! </button>
     </div>
     <div class="right-groceries section-groceries sub-groceries">
         <div class="list-groceries">
+            <h2>Grocery List</h2>
+            <br>
+            <ul id="gl">
 
+            </ul>
         </div>
         <div class="download-groceries">
-
+            <hr>
+            <br>
+            <h2>Download:</h2>
+            <br>
+            <a class="download-link" href="3.myGroceries.html" onclick="downloadGroceries('txt')">To Text File</a>
+            <a class="download-link" href="3.myGroceries.html" onclick="downloadGroceries('csv')">To CSV File</a>
         </div>
     </div>
 

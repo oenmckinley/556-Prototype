@@ -1,10 +1,40 @@
 fetch("../recipes_with_instructions.json")
     .then((res) => res.json())
     .then((recipes) => {
-        renderRecipes(recipes);
+        addIngredients(recipes);
+        renderGroceries(recipes);
+        renderGroceryList();
     });
 
-function renderRecipes(recipes) {
+function renderGroceryList() {
+    let groceries = getGroceries();
+
+    const list = document.getElementById("gl");
+    list.innerHTML = ``;
+    if (groceries.length === 0) list.innerHTML = `<li>No ingredients to add.</li>`
+    else {
+        groceries.forEach((ingredient) => {
+            list.innerHTML += `<li>${ingredient}</li>`
+        })
+    }
+}
+
+function getGroceries() {
+    let added = getAddedGroceries();
+    let scheduled = getScheduledGroceries();
+    let groceries = []
+
+    added.forEach((ingredient) => {
+        if (!groceries.includes(ingredient)) groceries.push(ingredient);
+    })
+    scheduled.forEach((ingredient) => {
+        if (!groceries.includes(ingredient)) groceries.push(ingredient);
+    })
+
+    return groceries;
+}
+
+function renderGroceries(recipes) {
     const grid1 = document.getElementById("addedGrid");
     const grid2 = document.getElementById("weekGrid");
     grid1.innerHTML = "";
@@ -87,4 +117,22 @@ function renderRecipes(recipes) {
 
         grid2.appendChild(card);
     }
+}
+
+function downloadGroceries(ext) {
+    let list = document.getElementById("gl").innerHTML;
+    list = list.replaceAll('</li><li>', '\n');
+    list = list.replaceAll('<li>', '').replace('</li>', '')
+    if (ext === 'csv') list = 'Ingredients\n'
+
+    let filename = 'groceries.'+ext
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(list));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+    document.body.removeChild(element);
 }

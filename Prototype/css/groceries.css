@@ -1,7 +1,6 @@
 .groceries {
     width: 100%;
     margin: 3%;
-
 }
 
 .section-groceries {
@@ -58,4 +57,26 @@
     margin: 5px;
     min-height: 100px;
     max-width: 400px;
+}
+
+.list-groceries {
+    height: 700px;
+    padding: 5%;
+}
+
+.download-groceries {
+    height: 200px;
+    padding: 0 5% 5% 5%;
+    text-align: center;
+}
+
+.download-link {
+    color: blue;
+}
+
+#gl {
+    max-height: 600px;
+    padding: 0 10% 0 10%;
+    font-size: larger;
+    overflow-y: scroll;
 }
