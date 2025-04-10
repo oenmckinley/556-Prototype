@@ -8,7 +8,7 @@ function renderRecipes(recipes) {
     const grid = document.getElementById("recipeGrid");
     grid.innerHTML = "";
 
-    i = 0;
+    let i = 0;
     recipes.forEach((recipe) => {
         const title = recipe.title || "";
         const ingredients = recipe.ingredients || [];
