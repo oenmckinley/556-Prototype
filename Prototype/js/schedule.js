@@ -51,20 +51,34 @@ window.onload = function() {
         let recipes = document.getElementsByClassName('recipes');
         let recipesList = Array.from(recipes);
         recipesList.forEach(element => {
-            element.addEventListener('mouseenter', (event) => {
-                const hover_div = document.createElement('div');
-                hover_div.classList.add('recipe_hover_div');
-                element.appendChild(hover_div);
-
-            });
-            element.addEventListener('mouseleave', (event) => {
-                const delete_div = element.getElementsByClassName('recipe_hover_div')[0];
-                console.log(delete_div);
-                if(delete_div){
-                    element.removeChild(delete_div);
+            element.addEventListener('click', (event) => {
+                const hover_div = document.getElementsByClassName('recipe_hover_div')[0];
+                hover_div.style.display = 'block';
+                hover_div.style.top = event.y+'px';
+                hover_div.style.left = event.x+'px';
+                hover_div.getElementsByClassName('recipe_name')[0].innerHTML = element.getElementsByClassName('recipe_name')[0].innerHTML;
+                if(event.x+hover_div.offsetWidth>window.innerWidth){
+                    hover_div.style.left = (window.innerWidth-hover_div.offsetWidth)+'px';
+                }
+                if(event.y+hover_div.offsetHeight>window.innerHeight){
+                    hover_div.style.top = (window.innerHeight-hover_div.offsetHeight)+'px';
                 }
             });
-
+        });
+        const hover_div = document.getElementsByClassName('recipe_hover_div')[0];
+        document.addEventListener('click', function(event) {
+            if (!hover_div.contains(event.target) && event.target.className!=='recipes' && event.target.className!=='recipe_name') {
+                hover_div.style.display = 'none';
+            };
+        });
+        hover_div.getElementsByClassName('recipe_hover_show')[0].addEventListener('click',function(){
+            const param = hover_div.getElementsByClassName('recipe_name')[0].innerHTML;
+            const url = `recipe.html?param1=${param}`;
+            window.location.href = url;
+        });
+        hover_div.getElementsByClassName('recipe_hover_add')[0].addEventListener('click',function(){
+            const date_from = Date(hover_div.getElementById('date_from').value);
+            const date_to = Date(hover_div.getElementById('date_to').value);
         });
     });
 
