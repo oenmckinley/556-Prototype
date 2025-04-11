@@ -26,6 +26,8 @@ function renderRecipes(recipes) {
         <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
         <p><strong>Restrictions:</strong> ${restrictions.join(", ")}</p>
         <button>Add</button>
+        <button onclick="window.location.href='recipe.html?id=${recipe.id}'">View</button>
+
     `;
 
         grid.appendChild(card);
