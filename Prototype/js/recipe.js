@@ -19,12 +19,13 @@ function renderRecipes(recipes) {
         card.className = "recipe-card";
 
         card.innerHTML = `
-      ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ""}
-      <h4>${recipe.title}</h4>
-      <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
-      <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
-      <p><strong>Restrictions:</strong> ${restrictions.join(", ")}</p>
-      <button>Add</button>
+        <span class="recipe-id" style="display:none;">${recipe.id}</span>
+        ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ""}
+        <h4>${recipe.title}</h4>
+        <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
+        <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
+        <p><strong>Restrictions:</strong> ${restrictions.join(", ")}</p>
+        <button>Add</button>
     `;
 
         grid.appendChild(card);
