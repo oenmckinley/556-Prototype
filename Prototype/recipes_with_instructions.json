@@ -37,7 +37,9 @@
     "preference": [
       "American"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "toaster"
     ],
@@ -60,7 +62,9 @@
     "preference": [
       "Italian"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Pan"
     ],
@@ -127,7 +131,9 @@
       "Appetizer",
       "Dessert"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Oven",
       "Pan"
@@ -204,7 +210,9 @@
       "Korean",
       "Asian"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Grill"
     ],
@@ -401,7 +409,9 @@
       "Japanese",
       "Korean"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Air-fryer"
     ],
@@ -627,7 +637,9 @@
     "preference": [
       "Japanese"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Pot",
       "Air-fryer",
@@ -679,7 +691,9 @@
       "American",
       "French"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Pan",
       "Oven"
@@ -828,7 +842,9 @@
       "American",
       "Appetizer"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Pan"
     ],
@@ -850,7 +866,9 @@
       "Appetizer",
       "Korean"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Oven"
     ],
@@ -872,7 +890,9 @@
     "preference": [
       "Japanese"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Air-fryer"
     ],
@@ -946,7 +966,9 @@
       "Dessert",
       "Asian"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Grill",
       "Pan",
@@ -970,7 +992,9 @@
     "preference": [
       "Appetizer"
     ],
-    "restriction": [],
+    "restriction": [
+      "N/A"
+    ],
     "utensils": [
       "Pan",
       "Grill"
