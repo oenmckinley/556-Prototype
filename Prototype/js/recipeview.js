@@ -1,9 +1,12 @@
 const params = new URLSearchParams(window.location.search);
 const recipeId = params.get("id");
 
+const recipeLink = document.getElementById("recipeLink");
 const ingredientsLink = document.getElementById("ingredientsLink");
-if (ingredientsLink && recipeId) {
-    ingredientsLink.href = `ingredients.html?id=${recipeId}`;
+
+if (recipeId) {
+    if (recipeLink) recipeLink.href = `recipe.html?id=${recipeId}`;
+    if (ingredientsLink) ingredientsLink.href = `ingredients.html?id=${recipeId}`;
 }
 
 fetch("../recipes_with_instructions.json")
