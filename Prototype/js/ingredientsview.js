@@ -23,8 +23,8 @@ fetch("../recipes_with_instructions.json")
 function displayIngredients(recipe) {
     // Insert ingredient data into HTML elements
     // You can update this based on your layout
+    document.querySelector('.video h3').innerHTML = `<u>${recipe.title}</u>`;
     const content = `
-        <h3>${recipe.title}</h3>
         <p><strong>Cost:</strong> ${recipe.cost}</p>
         <p><strong>Time:</strong> ${recipe.time} mins</p>
         <p><strong>Ingredients:</strong></p>
@@ -32,5 +32,6 @@ function displayIngredients(recipe) {
             ${recipe.ingredients?.map(item => `<li>${item}</li>`).join('')}
         </ul>
     `;
-    document.querySelector(".container").innerHTML += content;
+    document.getElementById("ingredientsContainer").innerHTML = content;
+
 }
