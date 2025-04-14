@@ -50,9 +50,29 @@
 }
 
 .recipe-card button {
-    background-color: #d0f0d0;
-    border: none;
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.add-recipe {
+    background-color: #d0f0d0;
+    border: 2px solid #d0f0d0;
+}
+
+.add-recipe:hover {
+    background-color: #ffffff;
+    color: #d0f0d0;
+    border: 2px solid #d0f0d0;
+}
+
+.rem-recipe {
+    background-color: #f36f6f;
+    border: 2px solid #f36f6f;
+}
+
+.rem-recipe:hover {
+    background-color: #ffffff;
+    color: #f36f6f;
+    border: 2px solid #f36f6f;
 }

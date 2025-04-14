@@ -39,6 +39,7 @@ function applyFilters() {
         return costVal >= costMin && costVal <= costMax &&
             timeVal >= timeMin && timeVal <= timeMax &&
             hasAllIngredients && hasNoExcluded && hasPreference && hasUtensils;
+
     });
 
     renderRecipes(filtered);
@@ -53,18 +54,22 @@ function renderRecipes(recipes) {
     const grid = document.getElementById("recipeGrid");
     grid.innerHTML = "";
 
+    let i = 0;
     recipes.forEach((recipe) => {
+        const title = recipe.title || "";
         const ingredients = recipe.ingredients || [];
         const preferences = recipe.preference || [];
         const restrictions = recipe.restriction || [];
         const utensils = recipe.utensils || [];
         const instruction = recipe.instruction || "";
+        const added = addedRecipes.includes(title);
 
         const card = document.createElement("div");
         card.className = "recipe-card";
+        card.id = "card"+i.toString();
 
         card.innerHTML = `
-      ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ""}
+      ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ``}
       <h4>${recipe.title}</h4>
       <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
       <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
@@ -75,7 +80,10 @@ function renderRecipes(recipes) {
       <button>Add</button>
     `;
 
+
         grid.appendChild(card);
+
+        i++;
     });
 }
 
@@ -164,4 +172,5 @@ function populateFilterSection(selector, items) {
 
 function normalize(str) {
     return str.toLowerCase().trim().replace(/s$/, '');
+
 }
