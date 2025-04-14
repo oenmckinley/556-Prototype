@@ -76,3 +76,20 @@
     color: #f36f6f;
     border: 2px solid #f36f6f;
 }
+
+.recipe-img {
+    width: 205px;
+    height: 100px;
+}
+
+a.show-more-link {
+    text-decoration: underline;
+    color: grey;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    align-self: flex-start;
+    justify-self: flex-start;
+    text-align: left;
+}

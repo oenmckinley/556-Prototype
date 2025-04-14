@@ -1,17 +1,24 @@
 let allRecipes = [];
+let planner = JSON.parse(sessionStorage.getItem("planner")) || [];
 
-fetch("../recipes_with_instructions.json")
-    .then((res) => res.json())
-    .then((recipes) => {
-        allRecipes = recipes;
-        renderRecipes(allRecipes);
-        populateSearchFilters(allRecipes);
-    });
-
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("../recipes_with_instructions.json")
+        .then((res) => res.json())
+        .then((recipes) => {
+            allRecipes = recipes;
+            renderRecipes(allRecipes);
+            populateSearchFilters(allRecipes);
+        });
+});
 // Event listeners for filter buttons
-document.querySelector(".btn_filters[type='button']").addEventListener("click", applyFilters);
-document.querySelectorAll(".btn_filters")[1].addEventListener("click", () => {
-    renderRecipes(allRecipes);
+document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll(".btn_filters");
+    if (filterButtons.length >= 2) {
+        filterButtons[0].addEventListener("click", applyFilters);
+        filterButtons[1].addEventListener("click", () => renderRecipes(allRecipes));
+    } else {
+        console.warn("Filter buttons not found");
+    }
 });
 
 function applyFilters() {
@@ -39,7 +46,6 @@ function applyFilters() {
         return costVal >= costMin && costVal <= costMax &&
             timeVal >= timeMin && timeVal <= timeMax &&
             hasAllIngredients && hasNoExcluded && hasPreference && hasUtensils;
-
     });
 
     renderRecipes(filtered);
@@ -54,37 +60,47 @@ function renderRecipes(recipes) {
     const grid = document.getElementById("recipeGrid");
     grid.innerHTML = "";
 
-    let i = 0;
     recipes.forEach((recipe) => {
-        const title = recipe.title || "";
         const ingredients = recipe.ingredients || [];
         const preferences = recipe.preference || [];
         const restrictions = recipe.restriction || [];
         const utensils = recipe.utensils || [];
         const instruction = recipe.instruction || "";
-        const added = addedRecipes.includes(title);
+        const isAdded = planner.some(r => r.title === recipe.title);
 
         const card = document.createElement("div");
         card.className = "recipe-card";
-        card.id = "card"+i.toString();
+        card.id = recipe.title.replace(/\s+/g, '-').toLowerCase();
 
         card.innerHTML = `
-      ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ``}
-      <h4>${recipe.title}</h4>
-      <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
-      <p><strong>Preferences:</strong> ${preferences.join(", ")}</p>
-      <p><strong>Restrictions:</strong> ${restrictions.join(", ")}</p>
-      <p><strong>Utensils:</strong> ${utensils.join(", ")}</p>
-      <ul><strong>Ingredients:</strong> ${ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
-      <p><strong>Instructions:</strong><br>${instruction.replace(/\n/g, "<br>")}</p>
-      <button>Add</button>
-    `;
-
+        <h4>${recipe.title}</h4>
+        <img src="../img/video.png" alt="${recipe.title}" class="recipe-img" />
+        <p>${recipe.cost}${recipe.time} mins</p>
+        <strong>Ingredients:</strong>
+        <ul>
+            ${ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")}
+        </ul>
+        <div style="display: flex; ">
+        <a href="recipe.html?title=${encodeURIComponent(recipe.title)}" class="show-more-link">Show More</a>
+        <button class="${isAdded ? 'rem-recipe' : 'add-recipe'}" onclick="${isAdded ? 'remRecipe' : 'addRecipe'}('${recipe.title}', '${card.id}')">${isAdded ? 'Remove' : 'Add'}</button>
+        </div>
+        `;
 
         grid.appendChild(card);
-
-        i++;
     });
+}
+
+function addRecipe(title, cardId) {
+    const recipe = allRecipes.find(r => r.title === title);
+    if (!planner.some(r => r.title === title)) planner.push(recipe);
+    sessionStorage.setItem("planner", JSON.stringify(planner));
+    document.getElementById(cardId).querySelector("button").outerHTML = `<button class="rem-recipe" onclick="remRecipe('${title}', '${cardId}')">Remove</button>`;
+}
+
+function remRecipe(title, cardId) {
+    planner = planner.filter(r => r.title !== title);
+    sessionStorage.setItem("planner", JSON.stringify(planner));
+    document.getElementById(cardId).querySelector("button").outerHTML = `<button class="add-recipe" onclick="addRecipe('${title}', '${cardId}')">Add</button>`;
 }
 
 function populateSearchFilters(recipes) {
@@ -167,10 +183,17 @@ function populateFilterSection(selector, items) {
             moreBtn.style.display = matches > 2 ? "block" : "none";
             lessBtn.style.display = "none";
         }
+        if (term === "") {
+            wrapper.querySelectorAll("label").forEach((label, index) => {
+                label.style.display = index < 2 ? "block" : "none";
+            });
+            moreBtn.style.display = uniqueItems.length > 2 ? "block" : "none";
+            lessBtn.style.display = "none";
+            expanded = false;
+        }
     });
 }
 
 function normalize(str) {
     return str.toLowerCase().trim().replace(/s$/, '');
-
 }
