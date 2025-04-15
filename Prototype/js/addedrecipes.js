@@ -1,6 +1,4 @@
-let addedRecipes = sessionStorage.getItem('addedRecipes');
-if (addedRecipes != null) addedRecipes = addedRecipes.split(',');
-else addedRecipes = [];
+let addedRecipes = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
 
 let scheduledRecipes = sessionStorage.getItem('scheduledRecipes');
 if (scheduledRecipes != null) scheduledRecipes = scheduledRecipes.split(',');
@@ -51,7 +49,7 @@ function getAddedGroceries() {
     console.log(allIngredients)
     let groceries = [];
     addedRecipes.forEach((recipe) => {
-        allIngredients[recipe].forEach((ingredient) => {
+        allIngredients[recipe.title].forEach((ingredient) => {
             if (!groceries.includes(ingredient)) groceries.push(ingredient);
         });
     });
@@ -61,7 +59,7 @@ function getAddedGroceries() {
 function getScheduledGroceries() {
     let groceries = [];
     scheduledRecipes.forEach((recipe) => {
-        allIngredients[recipe].forEach((ingredient) => {
+        allIngredients[recipe.title].forEach((ingredient) => {
             if (!groceries.includes(ingredient)) groceries.push(ingredient);
         });
     });

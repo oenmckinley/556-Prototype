@@ -1,5 +1,5 @@
 let allRecipes = [];
-let planner = JSON.parse(sessionStorage.getItem("planner")) || [];
+let planner = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("../recipes_with_instructions.json")
@@ -93,13 +93,13 @@ function renderRecipes(recipes) {
 function addRecipe(title, cardId) {
     const recipe = allRecipes.find(r => r.title === title);
     if (!planner.some(r => r.title === title)) planner.push(recipe);
-    sessionStorage.setItem("planner", JSON.stringify(planner));
+    sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
     document.getElementById(cardId).querySelector("button").outerHTML = `<button class="rem-recipe" onclick="remRecipe('${title}', '${cardId}')">Remove</button>`;
 }
 
 function remRecipe(title, cardId) {
     planner = planner.filter(r => r.title !== title);
-    sessionStorage.setItem("planner", JSON.stringify(planner));
+    sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
     document.getElementById(cardId).querySelector("button").outerHTML = `<button class="add-recipe" onclick="addRecipe('${title}', '${cardId}')">Add</button>`;
 }
 
