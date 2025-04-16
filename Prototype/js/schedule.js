@@ -60,6 +60,9 @@ function update_schedule(dayone){
                         meals_div[i].style.background = meal2color[i];
                         meals_div[i].style.cursor = 'pointer';
                     });
+                    meals_div[i].addEventListener('mouseleave',()=>{
+                        meals_div[i].style.background = meal2color[i];
+                    });
                 }
                 else{
                     meals_div[i].getElementsByClassName('meal_name')[0].innerHTML = meals_default[i];
@@ -124,13 +127,12 @@ function update_schedule(dayone){
                     new_meal.style.top = `${i*20+2}%`;
                     const newp = document.createElement('p');
                     newp.classList.add('scheduled_meal_name');
-                    newp.classList.add('scheduled_meal_name');
                     newp.innerHTML = all_meals[i];
                     new_meal.appendChild(newp);
                     scheduled_meals.appendChild(new_meal);
                     new_meal.addEventListener('click',(event)=>{
                         const param = all_meals[i];
-                        const url = `recipe.html?param1=${param}`;
+                        const url = `recipe.html?title=${encodeURIComponent(param)}`;
                         window.location.href = url;
                     });
                     new_meal.addEventListener('mouseenter',(event)=>{
@@ -233,7 +235,7 @@ window.onload = function() {
     // show the details of an added recipe
     hover_div.getElementsByClassName('recipe_hover_show')[0].addEventListener('click',function(){
         const param = hover_div.getElementsByClassName('recipe_name')[0].innerHTML;
-        const url = `recipe.html?param1=${param}`;
+        const url = `recipe.html?title=${encodeURIComponent(param)}`;
         window.location.href = url;
     });
 
