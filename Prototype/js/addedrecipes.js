@@ -1,8 +1,8 @@
+//sessionStorage.setItem("addedRecipes", JSON.stringify([]));
+
 let addedRecipes = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
 
-let scheduledRecipes = sessionStorage.getItem('scheduledRecipes');
-if (scheduledRecipes != null) scheduledRecipes = scheduledRecipes.split(',');
-else scheduledRecipes = [];
+let scheduledRecipes = JSON.parse(sessionStorage.getItem("scheduledRecipes")) || {};
 
 let allIngredients = sessionStorage.getItem('allIngredients');
 if (allIngredients != null) allIngredients = JSON.parse(allIngredients);
@@ -23,7 +23,7 @@ function addRecipe(title, cid) {
 
     card.innerHTML = newHTML;
     sessionStorage.setItem('addedRecipes', addedRecipes);
-    console.log(addedRecipes)
+    //console.log(addedRecipes)
 }
 
 function remRecipe(title, cid) {
@@ -42,11 +42,11 @@ function remRecipe(title, cid) {
     card.innerHTML = newHTML;
 
     sessionStorage.setItem('addedRecipes', addedRecipes);
-    console.log(addedRecipes)
+    //console.log(addedRecipes)
 }
 
 function getAddedGroceries() {
-    console.log(allIngredients)
+    //console.log(allIngredients)
     let groceries = [];
     addedRecipes.forEach((recipe) => {
         allIngredients[recipe.title].forEach((ingredient) => {
@@ -56,12 +56,29 @@ function getAddedGroceries() {
     return groceries;
 }
 
-function getScheduledGroceries() {
+function getScheduledGroceries(recipes) {
     let groceries = [];
-    scheduledRecipes.forEach((recipe) => {
-        allIngredients[recipe.title].forEach((ingredient) => {
-            if (!groceries.includes(ingredient)) groceries.push(ingredient);
-        });
+    let printed = [];
+    recipes.forEach((recipe) => {
+        const title = recipe.title || "";
+        const ingredients = recipe.ingredients || [];
+
+        let current_week = []
+        let current_date = new Date();
+        let current_week_end = new Date();
+        current_week_end.setDate(current_week_end.getDate()-current_week_end.getDay()+6);
+        for (let i = current_date.getDay(); i < 7; i++) {
+            let curr = new Date();
+            curr.setDate(curr.getDate()-curr.getDay()+i);
+            let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
+
+            if (scheduled(key, title) && !printed.includes(title)) {
+                ingredients.forEach((ingredient) => {
+                    if (!groceries.includes(ingredient)) groceries.push(ingredient);
+                })
+                printed.push(title)
+            }
+        }
     });
     return groceries;
 

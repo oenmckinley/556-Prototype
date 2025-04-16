@@ -36,6 +36,7 @@
     <div class="calendar">
         <div class="calendar_day" style="left: 0%" id="day1">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -48,6 +49,7 @@
         </div>
         <div class="calendar_day" style="left: 14.2%" id="day2">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -60,6 +62,7 @@
         </div>
         <div class="calendar_day" style="left: 28.4%" id="day3">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -72,6 +75,7 @@
         </div>
         <div class="calendar_day" style="left: 42.6%" id="day4">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -84,6 +88,7 @@
         </div>
         <div class="calendar_day" style="left: 56.8%" id="day5">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -96,6 +101,7 @@
         </div>
         <div class="calendar_day" style="left: 71%" id="day6">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -108,6 +114,7 @@
         </div>
         <div class="calendar_day" style="left: 85.2%" id="day7">
             <div class="calendar_date"></div>
+            <div hidden class="full_calendar_date"></div>
             <div class="calendar_meals" style="outline: 3px #FFD9D9 solid; ">
                 <p class="meal_name">Add Breakfast</p>
             </div>
@@ -160,6 +167,7 @@
 
     <!-- here is the div shown when clicking a day on the week schedule -->
     <div class="meal_hover_div">
+        <div hidden class="meal_date"></div>
 
         <!-- show the scheduled meals on the left -->
         <div style="top: 2%;left: 2%;width: 50%;height: 96%;position: absolute;">
@@ -170,7 +178,7 @@
         <!-- show the option to check favorite and search -->
         <div style="top: 0%;left: 55%;width: 40%;height: 100%;position: absolute;">
             <div style="top: 25%;left: 5%;width: 90%;height: 20%;position: absolute;">
-                <button class="meal_hover_favorite" type="button">Check Favorites</button>
+                <button class="meal_hover_clear" type="button">Clear</button>
             </div>
             <div style="top: 55%;left: 5%;width: 90%;height: 20%;position: absolute;">
                 <button class="meal_hover_search" type="button">Search</button>
@@ -180,6 +188,7 @@
 
     </div>
 
+    <script src="../js/addedrecipes.js"></script>
     <script src="../js/schedule.js"></script>
 
 
