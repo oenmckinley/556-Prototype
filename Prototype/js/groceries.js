@@ -134,10 +134,10 @@ function renderGroceries(recipes) {
             let current_week = []
             let current_date = new Date();
             let current_week_end = new Date();
-            current_week_end.setDate(current_week_end.getDate()-current_week_end.getDay()+6);
-            for (let i = current_date.getDay(); i < 7; i++) {
+            current_week_end.setDate(current_week_end.getDate()+6);
+            for (let i = 0; i < 7; i++) {
                 let curr = new Date();
-                curr.setDate(curr.getDate()-curr.getDay()+i);
+                curr.setDate(curr.getDate()+i);
                 let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
                 //console.log(scheduledRecipes)
                 //console.log(key)

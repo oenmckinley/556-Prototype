@@ -218,7 +218,7 @@ window.onload = function() {
                 hover_div.style.top = (window.innerHeight-hover_div.offsetHeight)+'px';
             }
 
-            let default_date = `${current_date_start.getFullYear()}-${current_date_start.getMonth() < 9 ? "0" + (current_date_start.getMonth()+1).toString() : (current_date_start.getMonth()+1).toString()}-${current_date_start.getDate()}`;
+            let default_date = `${(new Date()).getFullYear()}-${(new Date()).getMonth() < 9 ? "0" + ((new Date()).getMonth()+1).toString() : ((new Date()).getMonth()+1).toString()}-${(new Date()).getDate()}`;
             document.getElementById('date_from').value = default_date;
             document.getElementById('date_to').value = default_date;
             document.getElementById('to_breakfast').checked = false;
