@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CookMate</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/recipecontainer.css">
+    
+</head>
+<body>
+    <header class="topbar">
+        <div class="logo"><i class="bi bi-book"></i> CookMate</div>
+        <nav class="nav-links">
+            <a class="btn_header" href="1.recipes.html">Recipes</a>
+            <a class="btn_header" href="2.myPlanner.html">My Planner</a>
+            <a class="btn_header" href="3.myGroceries.html">My Groceries</a>
+            <a class="btn_header" href="4.profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <div id="recipe-container"></div>
+
+    <script src="../js/addedrecipes.js"></script> 
+    <script src="../js/displayrecipes.js" defer></script>
+
+    <script>
+        window.onload = function () {
+            const container = document.getElementById("recipe-list");
+
+            if (addedRecipes.length === 0) {
+                container.innerHTML = "<p>No recipes added yet.</p>";
+                return;
+            }
+
+            addedRecipes.forEach(title => {
+                const ingredients = allIngredients[title] || [];
+
+                const card = document.createElement("div");
+                card.classList.add("recipe-card");
+                card.style.border = "1px solid #ccc";
+                card.style.borderRadius = "8px";
+                card.style.padding = "15px";
+                card.style.marginBottom = "10px";
+                card.style.backgroundColor = "#fdfdfd";
+
+                card.innerHTML = `
+                    <h2>${title}</h2>
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        ${ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                    </ul>
+                `;
+
+                container.appendChild(card);
+            });
+        };
+    </script>
+    
+</body>
+</html>
