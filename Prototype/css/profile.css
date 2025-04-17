@@ -1,0 +1,72 @@
+/* GENERAL PAGE STYLES */
+/* body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+} */
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: black;
+}
+
+/* RECIPE CONTAINER GRID */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* RECIPE CARD */
+.recipe-card {
+    background-color: #fff0dc;
+    border: 2px solid #f1d9b8;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-card h2 {
+    color: #8c4a1a;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.recipe-card h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #8c4a1a;
+}
+
+/* INGREDIENT LIST */
+.recipe-card ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+/* REMOVE BUTTON (if used) */
+.rem-recipe {
+    margin-top: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.rem-recipe:hover {
+    background-color: white;
+}

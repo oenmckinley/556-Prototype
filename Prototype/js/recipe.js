@@ -75,7 +75,7 @@ function renderRecipes(recipes) {
         card.innerHTML = `
         <h4>${recipe.title}</h4>
         <img src="../img/video.png" alt="${recipe.title}" class="recipe-img" />
-        <p>${recipe.cost}${recipe.time} mins</p>
+        <p>${recipe.cost} | ${recipe.time} mins</p>
         <strong>Ingredients:</strong>
         <ul>
             ${ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")}
