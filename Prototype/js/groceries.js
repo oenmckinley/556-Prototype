@@ -1,5 +1,8 @@
 let allRecipes = [];
 
+document.getElementById("date-start").value = getDateInput(new Date())
+document.getElementById("date-end").value = getDateInput(new Date())
+
 init();
 
 function init() {
@@ -13,8 +16,12 @@ function init() {
         });
 }
 
-function renderGroceryList(recipes) {
-    let groceries = getGroceries(recipes);
+function renderGroceryList(recipes = allRecipes) {
+    let added = document.getElementById("added-select").checked;
+    let week = document.getElementById("week-select").checked;
+    let range = document.getElementById("range-select").checked;
+
+    let groceries = getGroceries(recipes, added, week, range);
 
     const list = document.getElementById("gl");
     list.innerHTML = ``;
@@ -26,17 +33,36 @@ function renderGroceryList(recipes) {
     }
 }
 
-function getGroceries(recipes) {
-    let added = getAddedGroceries();
-    let scheduled = getScheduledGroceries(recipes);
+function getDateFromDiv(id) {
+    let d = document.getElementById(id).value.split("-");
+    return new Date(d[0],d[1]-1,d[2])
+}
+
+function getGroceries(recipes, added, week, range) {
+    let addedGroceries = getAddedGroceries();
+    let weekGroceries = getWeekGroceries(recipes);
+
+    let start = getDateFromDiv("date-start");
+    let end = getDateFromDiv("date-end");
+    let rangeGroceries = getRangeGroceries(recipes, start, end);
+
     let groceries = []
 
-    added.forEach((ingredient) => {
-        if (!groceries.includes(ingredient)) groceries.push(ingredient);
-    })
-    scheduled.forEach((ingredient) => {
-        if (!groceries.includes(ingredient)) groceries.push(ingredient);
-    })
+    if (added) {
+        addedGroceries.forEach((ingredient) => {
+            if (!groceries.includes(ingredient)) groceries.push(ingredient);
+        })
+    }
+    if (week) {
+        weekGroceries.forEach((ingredient) => {
+            if (!groceries.includes(ingredient)) groceries.push(ingredient);
+        })
+    }
+    if (range) {
+        rangeGroceries.forEach((ingredient) => {
+            if (!groceries.includes(ingredient)) groceries.push(ingredient);
+        })
+    }
 
     return groceries;
 }
@@ -61,6 +87,14 @@ function added(title) {
     return false;
 }
 
+function getKey(date) {
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+}
+
+function getDateInput(date) {
+    return `${date.getFullYear()}-${date.getMonth() < 9 ? "0" + (date.getMonth()+1).toString() : (date.getMonth()+1).toString()}-${date.getDate()}`
+}
+
 function addRecipe(title, cardId) {
     const recipe = allRecipes.find(r => r.title === title);
     if (!addedRecipes.some(r => r.title === title)) addedRecipes.push(recipe);
@@ -77,11 +111,19 @@ function remRecipe(title, cardId) {
 }
 
 
-function renderGroceries(recipes) {
+function renderGroceries(recipes = allRecipes) {
     const grid1 = document.getElementById("addedGrid");
     const grid2 = document.getElementById("weekGrid");
+    const grid3 = document.getElementById("rangeGrid");
     grid1.innerHTML = "";
     grid2.innerHTML = "";
+    grid3.innerHTML = "";
+
+    let start = getDateFromDiv("date-start");
+    let end = getDateFromDiv("date-end");
+
+    let weekRecipes = getWeekRecipes(recipes);
+    let rangeRecipes = getRangeRecipes(recipes, start, end);
 
     if (addedRecipes.length > 0) {
         let i = 0;
@@ -119,7 +161,7 @@ function renderGroceries(recipes) {
     }
 
     //console.log(scheduledRecipes)
-    if (Object.keys(scheduledRecipes).length > 0) {
+    if (weekRecipes.length > 0) {
         let n = 0;
         let printed = [];
         recipes.forEach((recipe) => {
@@ -137,7 +179,7 @@ function renderGroceries(recipes) {
             for (let i = 0; i < 7; i++) {
                 let curr = new Date();
                 curr.setDate(curr.getDate()+i);
-                let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
+                let key = getKey(curr);
                 //console.log(scheduledRecipes)
                 //console.log(key)
                 //console.log(title)
@@ -149,7 +191,6 @@ function renderGroceries(recipes) {
                     card.id = "weekcard" + n.toString();
 
                     card.innerHTML = `
-                  ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ``}
                   <h4>${recipe.title}</h4>
                   <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
                   ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
@@ -169,6 +210,33 @@ function renderGroceries(recipes) {
         card.innerHTML = `<h4>No Added Recipes!</h4>`;
 
         grid2.appendChild(card);
+    }
+
+    if (rangeRecipes.length > 0) {
+        let n = 0;
+        rangeRecipes.forEach((recipe) => {
+            const title = recipe.title || "";
+
+            const card = document.createElement("div");
+            card.className = "recipe-card groceries-card";
+            card.id = "rangecard" + n.toString();
+
+            card.innerHTML = `
+          <h4>${recipe.title}</h4>
+          <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
+          ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
+            `;
+
+            grid3.appendChild(card);
+            n++;
+        });
+    } else {
+        const card = document.createElement("div");
+        card.className = "recipe-card groceries-card";
+
+        card.innerHTML = `<h4>No Added Recipes!</h4>`;
+
+        grid3.appendChild(card);
     }
 }
 

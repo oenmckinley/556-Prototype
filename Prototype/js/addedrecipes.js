@@ -87,17 +87,14 @@ function getAddedGroceries() {
     return groceries;
 }
 
-function getScheduledGroceries(recipes) {
+function getWeekGroceries(recipes) {
     let groceries = [];
     let printed = [];
     recipes.forEach((recipe) => {
         const title = recipe.title || "";
         const ingredients = recipe.ingredients || [];
 
-        let current_week = []
         let current_date = new Date();
-        let current_week_end = new Date();
-        current_week_end.setDate(current_week_end.getDate()-current_week_end.getDay()+6);
         for (let i = current_date.getDay(); i < 7; i++) {
             let curr = new Date();
             curr.setDate(curr.getDate()-curr.getDay()+i);
@@ -114,6 +111,69 @@ function getScheduledGroceries(recipes) {
     return groceries;
 
 }
+
+function getRangeGroceries(recipes, start, end) {
+    let groceries = [];
+    let printed = [];
+    recipes.forEach((recipe) => {
+        const title = recipe.title || "";
+        const ingredients = recipe.ingredients || [];
+
+        let curr = start;
+        //console.log(curr)
+        //console.log(end)
+        //console.log(curr <= end)
+        while(curr <= end) {
+            let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
+            if (scheduled(key, title) && !printed.includes(title)) {
+                ingredients.forEach((ingredient) => {
+                    if (!groceries.includes(ingredient)) groceries.push(ingredient);
+                })
+                printed.push(title)
+            }
+            curr.setDate(curr.getDate()+1);
+        }
+    });
+    return groceries;
+}
+
+function getWeekRecipes(recipes) {
+    let rs = [];
+    recipes.forEach((recipe) => {
+        const title = recipe.title || "";
+
+        let current_date = new Date();
+        for (let i = current_date.getDay(); i < 7; i++) {
+            let curr = new Date();
+            curr.setDate(curr.getDate()-curr.getDay()+i);
+            let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
+
+            if (scheduled(key, title) && !rs.includes(recipe)) {
+                rs.push(recipe);
+            }
+        }
+    });
+    return rs;
+}
+
+function getRangeRecipes(recipes, start, end) {
+    let rs = [];
+    recipes.forEach((recipe) => {
+        const title = recipe.title || "";
+
+        let curr = start;
+        while(curr.getDate() <= end.getUTCDate()) {
+            let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
+            //console.log(start)
+            if (scheduled(key, title) && !rs.includes(recipe)) {
+                rs.push(recipe)
+            }
+            curr.setDate(curr.getDate()+1);
+        }
+    });
+    return rs;
+}
+
 
 function addIngredients(recipes) {
     allIngredients = {};

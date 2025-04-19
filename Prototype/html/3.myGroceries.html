@@ -30,15 +30,31 @@
             <div class="recipe-groceries sub-groceries">
                 <br>
                 <div class="added-groceries chunk-groceries">
-                    <h2>Added Recipes</h2>
+                    <input type="checkbox" id="added-select" name="added-select" onclick='renderGroceries();renderGroceryList();'>
+                    <label for="added-select" class="grid-title" id="added-title">Added Recipes</label>
                     <div class="grid-groceries" id="addedGrid"></div>
                 </div>
+                <br>
+                <hr>
+                <br>
                 <div class="week-groceries chunk-groceries">
-                    <h2>This Week's Recipes</h2>
+                    <input type="checkbox" id="week-select" name="week-select" checked onclick='renderGroceries();renderGroceryList();'>
+                    <label for="week-select" class="grid-title" id="week-title">This Week's Recipes</label>
                     <div class="grid-groceries" id="weekGrid"></div>
                 </div>
+                <br>
+                <hr>
+                <br>
+                <div class="range-groceries chunk-groceries">
+                    <input type="checkbox" id="range-select" name="range-select" onclick='renderGroceries();renderGroceryList();'>
+                    <label for="range-select" class="grid-title" id="range-title">Recipes from Date Range</label>
+                    <br>
+                    <div><input type="date" id="date-start" name="date-start" onchange='renderGroceries();renderGroceryList();'><p style="font-size: 30px; display: inline;"> - </p><input type="date" id="date-end" name="date-end" onchange='renderGroceries();renderGroceryList();'></div>
+                    <br>
+                    <div class="grid-groceries" id="rangeGrid"></div>
+                </div>
             </div>
-            <button class="btn_add add-groceries" onclick="renderGroceryList(allRecipes)"> Make Grocery List! </button>
+            <!--<button class="btn_add add-groceries" onclick="renderGroceryList(allRecipes)"> Make Grocery List! </button>-->
         </div>
         <div class="right-groceries section-groceries sub-groceries">
             <div class="list-groceries">
