@@ -98,7 +98,6 @@ function renderGroceries(recipes) {
             card.id = "addcard" + i.toString();
 
             card.innerHTML = `
-          ${recipe.img ? `<img src="${recipe.img}" alt="${recipe.title}" class="recipe-img" />` : ``}
           <h4>${recipe.title}</h4>
           <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
           ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
