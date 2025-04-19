@@ -77,3 +77,43 @@
     background-color: white;
 
 }
+
+.recipe button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #d0f0d0;
+    border: 2px solid #d0f0d0;
+}
+
+.add:hover {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #d0f0d0;
+    border: 2px solid #d0f0d0;
+}
+
+.rem {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f36f6f;
+    border: 2px solid #f36f6f;
+}
+
+.rem:hover {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #f36f6f;
+    border: 2px solid #f36f6f;
+}
