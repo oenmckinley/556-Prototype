@@ -112,6 +112,7 @@ function update_schedule(dayone){
                 hover_div.style.top = (window.innerHeight-hover_div.offsetHeight-50)+'px';
             }
             const calendar_date = element.parentNode.getElementsByClassName('full_calendar_date')[0].innerHTML;
+            const meal_time = element.getElementsByClassName('meal_time')[0].innerHTML;
             const meals_name = element.getElementsByClassName('meal_name')[0].innerHTML;
 
             // Add meals to scheduled_meals
@@ -120,6 +121,7 @@ function update_schedule(dayone){
                 console.log(all_meals);
                 const scheduled_meals = hover_div.getElementsByClassName('scheduled_meals')[0];
                 hover_div.getElementsByClassName('meal_date')[0].innerHTML = calendar_date
+                hover_div.getElementsByClassName('meal_time')[0].innerHTML = meal_time
 
                 for(let i=0;i<all_meals.length;i++){
                     const new_meal = document.createElement('div');
@@ -150,7 +152,8 @@ function update_schedule(dayone){
     });
     hover_div.getElementsByClassName('meal_hover_clear')[0].addEventListener('click',function(){
         let clear_date = hover_div.getElementsByClassName('meal_date')[0].innerHTML;
-        delete scheduled_meals_data[clear_date]
+        let clear_time = hover_div.getElementsByClassName('meal_time')[0].innerHTML;
+        delete scheduled_meals_data[clear_date][clear_time];
         sessionStorage.setItem("scheduledRecipes", JSON.stringify(scheduled_meals_data));
         hover_div.style.display = 'none';
         update_schedule(new Date(current_date_start.getTime()));
