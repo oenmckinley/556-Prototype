@@ -248,7 +248,7 @@
 .meal_hover_div {
     display: none;
     position: absolute;
-    width: 400px;
+    width: 300px;
     height: 250px;
     z-index: 100;
     background-color: rgba(223, 223, 229, 0.9);
@@ -311,26 +311,6 @@
     overflow: hidden;
 }
 
-.meal_hover_clear {
-    background-color: #ebe9e3;
-    border-color: #ebe9e3;
-    font-size: 1rem;
-    border-radius: 10px;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 1rem;
-}
-
-.meal_hover_clear:hover {
-    background-color: white;
-    color: #ebe9e3;
-    border-color: #ebe9e3;
-    font-size: 1rem;
-    border-radius: 10px;
-    width: 100%;
-    cursor: pointer;
-}
-
 .meal_hover_search {
     background-color: #ebe9e3;
     border-color: #ebe9e3;
@@ -355,9 +335,9 @@
     background-color: #ebe9e3;
     border-color: #ebe9e3;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 100%;
-    height: 50px;
+    height: 25px;
     margin-bottom: 1rem;
 }
 
@@ -366,7 +346,7 @@
     color: #ebe9e3;
     border-color: #ebe9e3;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 100%;
     cursor: pointer;
 }

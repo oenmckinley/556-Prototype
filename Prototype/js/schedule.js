@@ -158,10 +158,10 @@ function update_schedule(dayone){
         hover_div.style.display = 'none';
         update_schedule(new Date(current_date_start.getTime()));
     });
-    hover_div.getElementsByClassName('meal_hover_search')[0].addEventListener('click',function(){
-        const url = `1.recipes.html`;
-        window.location.href = url;
-    });
+    // hover_div.getElementsByClassName('meal_hover_search')[0].addEventListener('click',function(){
+    //     const url = `1.recipes.html`;
+    //     window.location.href = url;
+    // });
 }
 
 // function saveJsonToFile(data, filename = "data.json") {
@@ -307,6 +307,7 @@ window.onload = function() {
                 sessionStorage.setItem("scheduledRecipes", JSON.stringify(scheduled_meals_data));
                 console.log(sessionStorage.getItem("scheduledRecipes"));
                 update_schedule(new Date(current_date_start.getTime()));
+                hover_div.style.display = 'none';
                 //alert('TODO: Save data.');
                     // saveJsonToFile(scheduled_meals_data,'../data/scheduled_recipes.json');
                 // })
