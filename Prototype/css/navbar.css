@@ -49,3 +49,19 @@
 .btn_header:hover {
     color: #b6b5b5
 }
+
+.favorite-star {
+    font-size: 24px;
+    /* border: 2px solid gold; */
+    color: gold;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-left: auto; /* Optional to push it to the right */
+    display: inline-block; /* Makes the border wrap the star shape */
+    padding: 4px;  /* Adds space around the star inside the border */
+    border-radius: 50%; /* Optional: round the border edges */
+}
+
+.favorite-star.filled {
+    color: gold;
+}

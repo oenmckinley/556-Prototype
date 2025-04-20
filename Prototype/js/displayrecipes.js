@@ -1,20 +1,28 @@
+let allRecipes = [];
+let favoriteRecipes = JSON.parse(sessionStorage.getItem("favoriteRecipes")) || [];
+
+console.log(favoriteRecipes); // Check if favoriteRecipes contains any data
+const container = document.getElementById("recipe-container");
+console.log(container); // Ensure it's not null
+
+
 window.onload = function () {
     const container = document.getElementById("recipe-container");
 
     if (!container) return;
 
-    renderAddedRecipes(container);
+    renderFavoriteRecipes(container);
 };
 
-function renderAddedRecipes(container) {
+function renderFavoriteRecipes(container) {
     container.innerHTML = ""; // Clear existing content
 
-    if (addedRecipes.length === 0) {
-        container.innerHTML = "<p>No recipes added yet.</p>";
+    if (favoriteRecipes.length === 0) {
+        container.innerHTML = "<p>No favorite recipes yet.</p>";
         return;
     }
 
-    addedRecipes.forEach((recipe, index) => {
+    favoriteRecipes.forEach((recipe, index) => {
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
 
@@ -24,7 +32,7 @@ function renderAddedRecipes(container) {
             <h3>${recipe.title}</h3>
             <p><strong>Cost:</strong> ${recipe.cost}</p>
             <p><strong>Time:</strong> ${recipe.time} mins</p>
-            <p><strong>Ingredients:</strong> ${recipe.ingredients.join(", ")}</p>
+            <p><strong>Ingredients:</strong> ${recipe.ingredients ? recipe.ingredients.join(", ") : "N/A"}</p>
             <button class="rem-recipe" id="${cardId}">Remove</button>
         `;
 
@@ -38,7 +46,7 @@ function renderAddedRecipes(container) {
 }
 
 function removeRecipe(index, container) {
-    addedRecipes.splice(index, 1); // Remove from array
-    sessionStorage.setItem("addedRecipes", JSON.stringify(addedRecipes)); // Update sessionStorage
-    renderAddedRecipes(container); // Re-render the UI
+    favoriteRecipes.splice(index, 1); // Remove from array
+    sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes)); // Update sessionStorage
+    renderFavoriteRecipes(container); // Re-render the UI
 }

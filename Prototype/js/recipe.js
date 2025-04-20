@@ -1,6 +1,8 @@
 let allRecipes = [];
 let planner = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
 
+let favoriteRecipes = JSON.parse(sessionStorage.getItem("favoriteRecipes")) || [];
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch("../recipes_with_instructions.json")
         .then((res) => res.json())
@@ -92,6 +94,7 @@ function renderRecipes(recipes) {
     grid.innerHTML = "";
 
     recipes.forEach((recipe) => {
+        const isFavorited = favoriteRecipes.some(r => r.title === recipe.title);
         const ingredients = recipe.ingredients || [];
         const preferences = recipe.preference || [];
         const restrictions = recipe.restriction || [];
@@ -104,7 +107,12 @@ function renderRecipes(recipes) {
         card.id = recipe.title.replace(/\s+/g, '-').toLowerCase();
 
         card.innerHTML = `
-            <h4>${recipe.title}</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4>${recipe.title}</h4>
+                <div class="favorite-star ${isFavorited ? 'filled' : ''}" data-title="${recipe.title}">
+                    ${isFavorited ? "&#9733;" : "&#9734;"}
+                </div>
+            </div>
             <img src="../img/video.png" alt="${recipe.title}" class="recipe-img" />
             <p>${recipe.cost} | ${recipe.time} mins</p>
             <strong>Ingredients:</strong>
@@ -118,15 +126,36 @@ function renderRecipes(recipes) {
         `;
 
         grid.appendChild(card);
-
-    });
-    document.querySelectorAll(".show-more-link").forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            const title = e.currentTarget.getAttribute("data-title");
-            storeFiltersAndNavigate(title);
+        const star = card.querySelector(".favorite-star");
+        star.addEventListener("click", () => {
+            star.classList.toggle("filled");
         });
     });
+
+    document.querySelectorAll(".favorite-star").forEach(star => {
+        star.addEventListener("click", () => {
+            const title = star.getAttribute("data-title");
+            const isCurrentlyFavorited = favoriteRecipes.some(r => r.title === title);
+    
+            if (isCurrentlyFavorited) {
+                // Remove from favorites
+                favoriteRecipes = favoriteRecipes.filter(r => r.title !== title);
+                star.innerHTML = "&#9734;"; // hollow star
+                star.classList.remove("filled");
+            } else {
+                // Add to favorites
+                const recipe = allRecipes.find(r => r.title === title);
+                if (recipe) {
+                    favoriteRecipes.push(recipe);
+                    star.innerHTML = "&#9733;"; // filled star
+                    star.classList.add("filled");
+                }
+            }
+    
+            sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
+        });
+    });
+    
 }
 
 function addRecipe(title, cardId) {
@@ -264,3 +293,4 @@ function setCheckedValues(selector, values = []) {
         }
     });
 }
+
