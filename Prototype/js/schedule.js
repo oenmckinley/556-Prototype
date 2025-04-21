@@ -23,10 +23,69 @@ const index2day = {
     0:'Sun'
 }
 
+let DRAG_NAME = '';
+
 let added_recipes_data;
 let scheduled_meals_data;
 let current_date_start = new Date();
 current_date_start.setDate(current_date_start.getDate()-current_date_start.getDay());
+
+function drop_feature(event,meal_div,added_color,meal_date,meal_name){
+
+    event.preventDefault();
+    meal_div.style.background = added_color;
+  
+    const name_to_add = DRAG_NAME;
+    console.log(name_to_add);
+
+    if(!(meal_date in scheduled_meals_data)){
+        scheduled_meals_data[meal_date] = {};
+    }
+    if(!(meal_name in scheduled_meals_data[meal_date])){
+        scheduled_meals_data[meal_date][meal_name] = [];
+    }
+    scheduled_meals_data[meal_date][meal_name].push(name_to_add);
+
+    console.log(scheduled_meals_data);
+    console.log(JSON.stringify(scheduled_meals_data));
+    sessionStorage.setItem("scheduledRecipes", JSON.stringify(scheduled_meals_data));
+    console.log(sessionStorage.getItem("scheduledRecipes"));
+
+    update_schedule(new Date(current_date_start.getTime()));
+
+}
+
+function add_drop_feature(meal_div){
+
+    const meal2color = {
+        'breakfast':'#FFD9D9',
+        'lunch':'#FEE6C9',
+        'dinner':'#D2F0FF'
+    };
+    const meal_time = meal_div.getElementsByClassName('meal_time')[0].innerHTML;
+    const added_color = meal2color[meal_time];
+    meal_div.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    });
+    meal_div.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        meal_div.style.background = '#f0f0f0';
+    });
+    meal_div.addEventListener('dragleave', (event) => {
+        const names = meal_div.getElementsByClassName('meal_name')[0].innerHTML;
+        if(!names.startsWith('Add ')){
+            meal_div.style.background = added_color;
+        }
+        else{
+            meal_div.style.background = 'none';
+        }
+    });
+    meal_div.addEventListener('drop', (event) => {
+        const meal_date = meal_div.parentElement.getElementsByClassName('full_calendar_date')[0].innerHTML;
+        const meal_name = meal_div.getElementsByClassName('meal_time')[0].innerHTML;
+        drop_feature(event,meal_div,added_color,meal_date,meal_name);
+    });
+}
 
 function update_schedule(dayone){
 
@@ -195,6 +254,7 @@ window.onload = function() {
     for (let index = 0; index < added_recipes.length; index++) {
         const newDiv = document.createElement('div');
         newDiv.classList.add('recipes');
+        newDiv.draggable = true;
         newDiv.style.top = `${Math.floor(index/6)*20+3}%`;
         newDiv.style.left = `${(index%6)*16+3}%`;
         const newp = document.createElement('p');
@@ -202,6 +262,11 @@ window.onload = function() {
         newp.innerHTML = added_recipes[index];
         newDiv.appendChild(newp);
         added_recipes_div.appendChild(newDiv);
+
+        newDiv.addEventListener('dragstart',(event)=>{
+            DRAG_NAME = newp.innerHTML;
+        });
+
     }
 
     // add click event, to show a floating div
@@ -333,4 +398,10 @@ window.onload = function() {
     });
 
 
+    const meal_divs = document.getElementsByClassName('calendar_meals');
+    let meal_divs_list = Array.from(meal_divs);
+    meal_divs_list.forEach(element=>{
+        add_drop_feature(element);
+    });
+    
 }
