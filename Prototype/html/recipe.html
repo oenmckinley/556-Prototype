@@ -69,98 +69,90 @@
     </div>
 
     <script>
-
         function goBack() {
-                window.location.href = '1.recipes.html';
+            window.location.href = '1.recipes.html';
         }
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const recipeTitle = urlParams.get('title');
-
+    
+        const recipeTitle = sessionStorage.getItem("selectedTitle");
+        const allRecipes = JSON.parse(sessionStorage.getItem("allRecipes")) || [];
         let addedRecipes = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
-
-
+    
         if (recipeTitle) {
-            fetch('../recipes_with_instructions.json')
-                .then(response => response.json())
-                .then(recipes => {
-                    const recipe = recipes.find(r => r.title === recipeTitle);
-                    if (recipe) {
-                        document.getElementById('recipeTitle').textContent = recipe.title;
-                        document.getElementById('recipeIngredients').innerHTML = recipe.ingredients
-                            .map(ingredient => `<li>${ingredient}</li>`)
-                            .join('');
-                        document.getElementById('recipeInstructions').innerHTML = recipe.instruction
-                            .split('Step')
-                            .filter(step => step.trim() !== '')
-                            .map((step, index) => `<p>Step${step.trim()}</p>`)
-                            .join(''); 
-                            const thumbnail = getYoutubeThumbnail(recipe.img);
-                            document.getElementById('recipeImage').src = thumbnail;
-                            document.getElementById('recipeImage').onerror = () => {
-                                document.getElementById('recipeImage').src = '../img/video.png';
-                            };
-                            document.getElementById('recipeLink').href = recipe.img;
-
-
-                            const isAdded = addedRecipes.some(r => r.title === recipe.title);
-                            const btn = document.createElement("button");
-
-                            btn.className = isAdded ? "rem" : "add";
-                            btn.textContent = isAdded ? "Remove" : "Add";
-
-                            btn.addEventListener("click", () => {
-                                if (isAdded) {
-                                    addedRecipes = addedRecipes.filter(r => r.title !== recipe.title);
-                                    btn.textContent = "Add";
-                                    btn.className = "add";
-                                } else {
-                                    addedRecipes.push(recipe);
-                                    btn.textContent = "Remove";
-                                    btn.className = "rem";
-                                }
-                                sessionStorage.setItem("addedRecipes", JSON.stringify(addedRecipes));
-                            });
-                            document.getElementById("actionButtonContainer").appendChild(btn);
-
+            const recipe = allRecipes.find(r => r.title === recipeTitle);
+            if (recipe) {
+                document.getElementById('recipeTitle').textContent = recipe.title;
+    
+                document.getElementById('recipeIngredients').innerHTML = recipe.ingredients
+                    .map(ingredient => `<li>${ingredient}</li>`)
+                    .join('');
+    
+                document.getElementById('recipeInstructions').innerHTML = recipe.instruction
+                    .split('Step')
+                    .filter(step => step.trim() !== '')
+                    .map((step, index) => `<p>Step${step.trim()}</p>`)
+                    .join('');
+    
+                const thumbnail = getYoutubeThumbnail(recipe.img);
+                document.getElementById('recipeImage').src = thumbnail;
+                document.getElementById('recipeImage').onerror = () => {
+                    document.getElementById('recipeImage').src = '../img/video.png';
+                };
+                document.getElementById('recipeLink').href = recipe.img;
+    
+                const isAdded = addedRecipes.some(r => r.title === recipe.title);
+                const btn = document.createElement("button");
+    
+                btn.className = isAdded ? "rem" : "add";
+                btn.textContent = isAdded ? "Remove" : "Add";
+    
+                btn.addEventListener("click", () => {
+                    if (isAdded) {
+                        addedRecipes = addedRecipes.filter(r => r.title !== recipe.title);
+                        btn.textContent = "Add";
+                        btn.className = "add";
                     } else {
-                        console.error('Recipe not found');
+                        addedRecipes.push(recipe);
+                        btn.textContent = "Remove";
+                        btn.className = "rem";
                     }
-                })
-                .catch(error => console.error('Error fetching recipes:', error));
+                    sessionStorage.setItem("addedRecipes", JSON.stringify(addedRecipes));
+                });
+    
+                document.getElementById("actionButtonContainer").appendChild(btn);
+            } else {
+                console.error('Recipe not found in sessionStorage');
+            }
         } else {
-            console.error('No recipe title provided in the URL');
+            console.error('No recipe title found in sessionStorage');
         }
-
-
-
+    
+        // Tab switch
         document.getElementById('showRecipe').addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('ingredientsSection').style.display = 'none';
             document.getElementById('instructionsSection').style.display = 'block';
-
             document.getElementById('showRecipe').classList.add('active');
             document.getElementById('showIngredients').classList.remove('active');
         });
-
+    
         document.getElementById('showIngredients').addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('instructionsSection').style.display = 'none';
             document.getElementById('ingredientsSection').style.display = 'block';
-
             document.getElementById('showIngredients').classList.add('active');
             document.getElementById('showRecipe').classList.remove('active');
         });
+    
         function getYoutubeThumbnail(url) {
-        const youtubeRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?/]+)/;
-        const match = url.match(youtubeRegex);
-        if (match && match[1]) {
-            return `https://img.youtube.com/vi/${match[1]}/0.jpg`;
+            const youtubeRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?/]+)/;
+            const match = url.match(youtubeRegex);
+            if (match && match[1]) {
+                return `https://img.youtube.com/vi/${match[1]}/0.jpg`;
+            }
+            return '../img/video.png'; // fallback image
         }
-        return '../img/video.png'; // fallback image
-    }
-
     </script>
+    
 </body>
 
 </html>

@@ -1,14 +1,7 @@
-let allRecipes = [];
 let favoriteRecipes = JSON.parse(sessionStorage.getItem("favoriteRecipes")) || [];
-
-console.log(favoriteRecipes); // Check if favoriteRecipes contains any data
-const container = document.getElementById("recipe-container");
-console.log(container); // Ensure it's not null
-
 
 window.onload = function () {
     const container = document.getElementById("recipe-container");
-
     if (!container) return;
 
     renderFavoriteRecipes(container);
@@ -33,23 +26,37 @@ function renderFavoriteRecipes(container) {
                 <h4>${recipe.title}</h4>
                 <button class="rem-recipe" id="${cardId}">Remove</button>
             </div>
-            <img src="${recipe.img ? getVideoThumbnail(recipe.img) : '../img/video.png'}" alt="${recipe.title}" class="recipe-img" onerror="this.src='../img/video.png'" />
+            <img src="${recipe.img ? getVideoThumbnail(recipe.img) : '../img/video.png'}" 
+                 alt="${recipe.title}" 
+                 class="recipe-img" 
+                 onerror="this.src='../img/video.png'" />
             <p>${recipe.cost} | ${recipe.time} mins</p>
             <strong>Ingredients:</strong>
-            <ul>${recipe.ingredients ? recipe.ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("") : "<li>N/A</li>"}</ul>
+            <ul>
+                ${
+                    recipe.ingredients && recipe.ingredients.length > 0
+                        ? recipe.ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")
+                        : "<li>N/A</li>"
+                }
+            </ul>
             <div style="display: flex;">
                 <a href="#" class="show-more-link" data-title="${recipe.title}">Show More</a>
             </div>
         `;
 
+        // Remove button listener
         recipeCard.querySelector(`#${cardId}`).addEventListener("click", () => {
             removeRecipe(index, container);
         });
 
+        // Show more link listener
         const showMoreLink = recipeCard.querySelector(".show-more-link");
         showMoreLink.addEventListener("click", (e) => {
             e.preventDefault();
-            const title = showMoreLink.getAttribute("data-title");
+            const title = e.currentTarget.getAttribute("data-title");
+
+            // Save entire list of recipes (if not already stored)
+            sessionStorage.setItem("allRecipes", JSON.stringify(favoriteRecipes)); // or full list if you want
             storeFiltersAndNavigate(title);
         });
 
@@ -58,9 +65,9 @@ function renderFavoriteRecipes(container) {
 }
 
 function removeRecipe(index, container) {
-    favoriteRecipes.splice(index, 1); // Remove from array
-    sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes)); // Update sessionStorage
-    renderFavoriteRecipes(container); // Re-render the UI
+    favoriteRecipes.splice(index, 1);
+    sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
+    renderFavoriteRecipes(container);
 }
 
 function getVideoThumbnail(url) {
@@ -69,5 +76,10 @@ function getVideoThumbnail(url) {
     if (match && match[1]) {
         return `https://img.youtube.com/vi/${match[1]}/0.jpg`;
     }
-    return "../img/video.png"; // fallback image if not valid
+    return "../img/video.png";
+}
+
+function storeFiltersAndNavigate(title) {
+    sessionStorage.setItem("selectedTitle", title);
+    window.location.href = "recipe.html";
 }
