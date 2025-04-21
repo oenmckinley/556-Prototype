@@ -59,9 +59,7 @@ h1 {
     font-size: 56px;
 }
 
-h2 {
-    font-size: 36px;
-}
+
 
 a {
     border-radius: 8px;
@@ -75,7 +73,3 @@ a {
     width: 150px;
 }
 
-input {
-    font-size: 24px;
-    font-family: Arial, sans-serif;
-}

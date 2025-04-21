@@ -10,7 +10,7 @@
 }
 
 .sub-groceries {
-    background-color: #fff0dc;
+    background-color: #fff7ee;
     border-radius: 16px;
     margin: 0 0 20px 0;
 }
@@ -25,7 +25,7 @@
 }
 
 .recipe-groceries {
-    background-color: #fff0dc;
+    background-color: #fff7ee;
     height: 900px;
     width: 100%;
     border-radius: 16px;
@@ -37,7 +37,6 @@
 }
 
 .chunk-groceries {
-    height: 220px;
     margin: 10px 5% 10px 5%;
 }
 
@@ -45,10 +44,11 @@
     width: 100%;
     overflow-x: scroll;
     white-space: nowrap;
-    border: 2px solid black;
+    border: 1px solid grey;
     background-color: white;
     border-radius: 16px;
-    min-height: 150px;
+    max-height: 200px;
+
 }
 
 .groceries-card {
@@ -92,11 +92,38 @@ input[type=checkbox]
     padding: 10px;
     display: inline;
     margin: 10px 20px 30px 20px;
+    height: 10px;
 }
 
 .grid-title {
     display: inline;
-    font-size: 40px;
+    font-size: 1.2rem;
     vertical-align: middle;
     font-weight: bold;
+}
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, #f0f0f0, #ccc, #f0f0f0);
+    margin: 20px 20px;
+}
+
+.rem-recipe{
+    margin-top:10px;
+}
+.grocery-list-box{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+}
+
+.date-range {
+    margin:0;
+    margin-left: 50px;
+    margin-bottom:10px;
+    padding: 0;
 }

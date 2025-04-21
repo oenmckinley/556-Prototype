@@ -34,23 +34,18 @@
                     <label for="added-select" class="grid-title" id="added-title">Added Recipes</label>
                     <div class="grid-groceries" id="addedGrid"></div>
                 </div>
-                <br>
                 <hr>
-                <br>
                 <div class="week-groceries chunk-groceries">
                     <input type="checkbox" id="week-select" name="week-select" checked onclick='renderGroceries();renderGroceryList();'>
                     <label for="week-select" class="grid-title" id="week-title">This Week's Recipes</label>
                     <div class="grid-groceries" id="weekGrid"></div>
                 </div>
-                <br>
                 <hr>
-                <br>
                 <div class="range-groceries chunk-groceries">
                     <input type="checkbox" id="range-select" name="range-select" onclick='renderGroceries();renderGroceryList();'>
-                    <label for="range-select" class="grid-title" id="range-title">Recipes from Date Range</label>
-                    <br>
-                    <div><input type="date" id="date-start" name="date-start" onchange='renderGroceries();renderGroceryList();'><p style="font-size: 30px; display: inline;"> - </p><input type="date" id="date-end" name="date-end" onchange='renderGroceries();renderGroceryList();'></div>
-                    <br>
+                    <label for="range-select" class="grid-title" id="range-title">Recipes from Date Range
+                        <div class="date-range"><input type="date" id="date-start" name="date-start" onchange='renderGroceries();renderGroceryList();'><p style="font-size: 24px; display: inline;"> - </p><input type="date" id="date-end" name="date-end" onchange='renderGroceries();renderGroceryList();'></div>
+                    </label>
                     <div class="grid-groceries" id="rangeGrid"></div>
                 </div>
             </div>
@@ -60,7 +55,9 @@
             <div class="list-groceries">
                 <h2>Grocery List</h2>
                 <br>
-                <ul id="gl">
+                <div class="grocery-list-box">
+                    <ul id="gl">
+                </div>
 
                 </ul>
             </div>
