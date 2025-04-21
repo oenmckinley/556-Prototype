@@ -24,7 +24,10 @@ function renderFavoriteRecipes(container) {
         recipeCard.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h4>${recipe.title}</h4>
-                <button class="rem-recipe" id="${cardId}">Remove</button>
+                <div class="favorite-star filled" data-title="${recipe.title}">
+                    &#9733;
+                </div>
+
             </div>
             <img src="${recipe.img ? getVideoThumbnail(recipe.img) : '../img/video.png'}" 
                  alt="${recipe.title}" 
@@ -44,11 +47,6 @@ function renderFavoriteRecipes(container) {
             </div>
         `;
 
-        // Remove button listener
-        recipeCard.querySelector(`#${cardId}`).addEventListener("click", () => {
-            removeRecipe(index, container);
-        });
-
         // Show more link listener
         const showMoreLink = recipeCard.querySelector(".show-more-link");
         showMoreLink.addEventListener("click", (e) => {
@@ -61,6 +59,26 @@ function renderFavoriteRecipes(container) {
         });
 
         container.appendChild(recipeCard);
+        const star = recipeCard.querySelector(".favorite-star");
+        star.addEventListener("click", () => {
+            const title = star.getAttribute("data-title");
+            const isFavorited = favoriteRecipes.some(r => r.title === title);
+
+            if (isFavorited) {
+                favoriteRecipes = favoriteRecipes.filter(r => r.title !== title);
+                star.innerHTML = "&#9734;";
+                star.classList.remove("filled");
+            } else {
+                // This assumes each recipe in favoriteRecipes has full info
+                favoriteRecipes.push(recipe);
+                star.innerHTML = "&#9733;";
+                star.classList.add("filled");
+            }
+
+            sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
+            renderFavoriteRecipes(container); // optional, if you want to refresh the view
+        });
+
     });
 }
 
