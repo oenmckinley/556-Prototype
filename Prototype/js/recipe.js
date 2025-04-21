@@ -126,6 +126,17 @@ function renderRecipes(recipes) {
         `;
 
         grid.appendChild(card);
+        
+        const showMoreLink = card.querySelector(".show-more-link");
+        if (showMoreLink) {
+            showMoreLink.addEventListener("click", (e) => {
+                e.preventDefault(); // prevents "#" from jumping page
+                const title = showMoreLink.getAttribute("data-title");
+                storeFiltersAndNavigate(title); // navigate with filters saved
+            });
+        }
+        
+
         const star = card.querySelector(".favorite-star");
         star.addEventListener("click", () => {
             star.classList.toggle("filled");
