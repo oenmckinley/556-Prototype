@@ -126,6 +126,7 @@ function setCheckedValues(containerId, values = []) {
 
 function renderRecipes(recipes) {
     const grid = document.getElementById("recipeGrid");
+    
     grid.innerHTML = "";
 
     recipes.forEach((recipe) => {
@@ -138,6 +139,8 @@ function renderRecipes(recipes) {
         const card = document.createElement("div");
         card.className = "recipe-card";
         card.id = recipe.title.replace(/\s+/g, '-').toLowerCase();
+        const thumbnail = getVideoThumbnail(recipe.img);
+
 
         card.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -146,7 +149,8 @@ function renderRecipes(recipes) {
                     ${isFavorited ? "&#9733;" : "&#9734;"}
                 </div>
             </div>
-            <img src="../img/video.png" alt="${recipe.title}" class="recipe-img" />
+            <img src="${thumbnail}" alt="${recipe.title}" class="recipe-img" onerror="this.src='../img/video.png'" />
+
             <p>${recipe.cost} | ${recipe.time} mins</p>
             <strong>Ingredients:</strong>
             <ul>${ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")}</ul>
@@ -185,6 +189,19 @@ function renderRecipes(recipes) {
 
             sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
         });
+        card.addEventListener("click", (e) => {
+            // Prevent button or favorite star clicks from triggering navigation
+            if (
+                e.target.closest(".add-recipe") ||
+                e.target.closest(".rem-recipe") ||
+                e.target.closest(".favorite-star") ||
+                e.target.closest(".show-more-link")
+            ) {
+                return;
+            }
+            storeFiltersAndNavigate(recipe.title);
+        });
+        
     });
 }
 
@@ -328,6 +345,16 @@ function updateFilterBoxState(filterBoxId, inputSelectors) {
 
     box.classList.toggle("applied", hasValue);
 }
+
+function getVideoThumbnail(url) {
+    const youtubeRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?/]+)/;
+    const match = url.match(youtubeRegex);
+    if (match && match[1]) {
+        return `https://img.youtube.com/vi/${match[1]}/0.jpg`;
+    }
+    return "../img/video.png"; // fallback image if not valid
+}
+
 
 function normalize(str) {
     return str.toLowerCase().trim().replace(/s$/, '');

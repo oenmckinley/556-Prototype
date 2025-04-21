@@ -38,7 +38,12 @@
             <!-- Left column for the image -->
             <div class="video-container">
                 <div class="video">
-                    <img src="../img/video.png" alt="Recipe Image" id="recipeImage">
+                    <p>Click the image to watch the recipe video on YouTube.</p>
+                    <a id="recipeLink" target="_blank" rel="noopener noreferrer">
+
+                        <img src="../img/video.png" alt="Recipe Image" id="recipeImage">
+                    </a>
+                    
                 </div>
             </div>
 
@@ -90,7 +95,12 @@
                             .filter(step => step.trim() !== '')
                             .map((step, index) => `<p>Step${step.trim()}</p>`)
                             .join(''); 
-                            document.getElementById('recipeImage').src = '../img/video.png';
+                            const thumbnail = getYoutubeThumbnail(recipe.img);
+                            document.getElementById('recipeImage').src = thumbnail;
+                            document.getElementById('recipeImage').onerror = () => {
+                                document.getElementById('recipeImage').src = '../img/video.png';
+                            };
+                            document.getElementById('recipeLink').href = recipe.img;
 
 
                             const isAdded = addedRecipes.some(r => r.title === recipe.title);
@@ -141,6 +151,15 @@
             document.getElementById('showIngredients').classList.add('active');
             document.getElementById('showRecipe').classList.remove('active');
         });
+        function getYoutubeThumbnail(url) {
+        const youtubeRegex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?/]+)/;
+        const match = url.match(youtubeRegex);
+        if (match && match[1]) {
+            return `https://img.youtube.com/vi/${match[1]}/0.jpg`;
+        }
+        return '../img/video.png'; // fallback image
+    }
+
     </script>
 </body>
 
