@@ -18,16 +18,14 @@ function renderFavoriteRecipes(container) {
     favoriteRecipes.forEach((recipe, index) => {
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
-
         const cardId = `recipe-${index}`;
-
+    
         recipeCard.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h4>${recipe.title}</h4>
                 <div class="favorite-star filled" data-title="${recipe.title}">
                     &#9733;
                 </div>
-
             </div>
             <img src="${recipe.img ? getVideoThumbnail(recipe.img) : '../img/video.png'}" 
                  alt="${recipe.title}" 
@@ -46,40 +44,54 @@ function renderFavoriteRecipes(container) {
                 <a href="#" class="show-more-link" data-title="${recipe.title}">Show More</a>
             </div>
         `;
-
-        // Show more link listener
+    
+        // Attach event listener to the entire recipe card
+        recipeCard.addEventListener("click", (e) => {
+            // Ignore clicks on the favorite star or the "Show More" link
+            if (e.target.closest('.favorite-star') || e.target.closest('.show-more-link')) return;
+    
+            const title = recipe.title;
+    
+            // Save entire list of recipes (if not already stored)
+            sessionStorage.setItem("allRecipes", JSON.stringify(favoriteRecipes)); // or full list if you want
+            storeFiltersAndNavigate(title); // Navigate to the detailed recipe page
+        });
+    
+        // Show more link listener (keep this for handling clicks on 'Show More' specifically)
         const showMoreLink = recipeCard.querySelector(".show-more-link");
         showMoreLink.addEventListener("click", (e) => {
             e.preventDefault();
             const title = e.currentTarget.getAttribute("data-title");
-
+    
             // Save entire list of recipes (if not already stored)
             sessionStorage.setItem("allRecipes", JSON.stringify(favoriteRecipes)); // or full list if you want
-            storeFiltersAndNavigate(title);
+            storeFiltersAndNavigate(title); // Navigate to the detailed recipe page
         });
-
+    
         container.appendChild(recipeCard);
+    
+        // Favorite star click listener
         const star = recipeCard.querySelector(".favorite-star");
-        star.addEventListener("click", () => {
+        star.addEventListener("click", (e) => {
             const title = star.getAttribute("data-title");
             const isFavorited = favoriteRecipes.some(r => r.title === title);
-
+    
             if (isFavorited) {
                 favoriteRecipes = favoriteRecipes.filter(r => r.title !== title);
-                star.innerHTML = "&#9734;";
+                star.innerHTML = "&#9734;"; // hollow star
                 star.classList.remove("filled");
             } else {
-                // This assumes each recipe in favoriteRecipes has full info
+                // Add recipe to favorites
                 favoriteRecipes.push(recipe);
-                star.innerHTML = "&#9733;";
+                star.innerHTML = "&#9733;"; // filled star
                 star.classList.add("filled");
             }
-
+    
             sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
             renderFavoriteRecipes(container); // optional, if you want to refresh the view
         });
-
     });
+    
 }
 
 function removeRecipe(index, container) {
