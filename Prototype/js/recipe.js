@@ -1,6 +1,5 @@
 let allRecipes = [];
 let planner = JSON.parse(sessionStorage.getItem("addedRecipes")) || [];
-
 let favoriteRecipes = JSON.parse(sessionStorage.getItem("favoriteRecipes")) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,62 +9,82 @@ document.addEventListener("DOMContentLoaded", () => {
             allRecipes = recipes;
             renderRecipes(allRecipes);
             populateSearchFilters(allRecipes);
+
             const saved = JSON.parse(sessionStorage.getItem("filters"));
             if (saved) {
-                const costInputs = document.querySelectorAll("input[type='number']");
-                costInputs[0].value = saved.costMin || "";
-                costInputs[1].value = saved.costMax || "";
-                costInputs[2].value = saved.timeMin || "";
-                costInputs[3].value = saved.timeMax || "";
+                document.getElementById("costMin").value = saved.costMin || "";
+                document.getElementById("costMax").value = saved.costMax || "";
+                document.getElementById("timeMin").value = saved.timeMin || "";
+                document.getElementById("timeMax").value = saved.timeMax || "";
 
-                setCheckedValues("#search-filter", saved.ingredients);
-                setCheckedValues(".filter-section:nth-of-type(4)", saved.excludes);
-                setCheckedValues(".filter-section:nth-of-type(5)", saved.preferences);
-                setCheckedValues(".filter-section:nth-of-type(6)", saved.utensils);
+                setCheckedValues("ingredientOptions", saved.ingredients);
+                setCheckedValues("excludeOptions", saved.excludes);
+                setCheckedValues("preferenceOptions", saved.preferences);
+                setCheckedValues("utensilOptions", saved.utensils);
 
                 applyFilters(); 
             }
-        
         });
-        
-        document.addEventListener("change", (e) => {
-            if (e.target.matches("input[type='checkbox']")) {
-                applyFilters();
+
+    document.addEventListener("change", (e) => {
+        if (e.target.matches("input[type='checkbox']")) {
+            applyFilters();
+        }
+    });
+
+    document.querySelectorAll("input[type='number']").forEach(input => {
+        input.addEventListener("input", applyFilters);
+    });
+
+    document.querySelectorAll(".search-input").forEach(input => {
+        input.addEventListener("input", applyFilters);
+    });
+
+    document.querySelectorAll('.filter-box').forEach(box => {
+        box.addEventListener('click', () => {
+            const id = box.id.replace('FilterBox', 'Dropdown');
+            const dropdown = document.getElementById(id);
+            console.log("Toggling dropdown:", id, dropdown); // 🔍 DEBUG LINE
+            if (dropdown) {
+                const isActive = dropdown.classList.contains('active');
+                closeAllDropdowns();
+                if (!isActive) {
+                    dropdown.classList.add('active');
+                    box.classList.add('active');
+                }
+
             }
         });
-        document.querySelectorAll("input[type='number']").forEach(input => {
-            input.addEventListener("input", () => {
-                applyFilters();
-            });
-        });
-        document.querySelectorAll(".search-input").forEach(input => {
-            input.addEventListener("input", () => {
-                applyFilters();
-            });
-        });
-        const filterButtons = document.querySelectorAll(".btn_filters");
-        if (filterButtons.length >= 2) {
-            filterButtons[0].addEventListener("click", applyFilters);
-            filterButtons[1].addEventListener("click", () => renderRecipes(allRecipes));
-        } else {
-            console.warn("Filter buttons not found");
-        }
-        
+    });
+    
 });
+
+// Close all dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    const isFilterBox = e.target.closest('.filter-box');
+    const isDropdown = e.target.closest('.filter-dropdown');
+    
+    if (!isFilterBox && !isDropdown) {
+        closeAllDropdowns();
+    }
+});
+
+function closeAllDropdowns() {
+    document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('active'));
+    document.querySelectorAll('.filter-box').forEach(b => b.classList.remove('active'));
+}
 
 
 function applyFilters() {
-    const costInputs = document.querySelectorAll("input[type='number']");
-    const costMin = parseFloat(costInputs[0].value) || 0;
-    const costMax = parseFloat(costInputs[1].value) || 1000;
+    const costMin = parseFloat(document.getElementById("costMin").value) || 0;
+    const costMax = parseFloat(document.getElementById("costMax").value) || 1000;
+    const timeMin = parseFloat(document.getElementById("timeMin").value) || 0;
+    const timeMax = parseFloat(document.getElementById("timeMax").value) || 1000;
 
-    const timeMin = parseFloat(costInputs[2].value) || 0;
-    const timeMax = parseFloat(costInputs[3].value) || 1000;
-
-    const selectedIngredients = getCheckedValues("#search-filter input[type='checkbox']");
-    const excludedIngredients = getCheckedValues(".filter-section:nth-of-type(4) input[type='checkbox']");
-    const selectedPreferences = getCheckedValues(".filter-section:nth-of-type(5) input[type='checkbox']");
-    const selectedUtensils = getCheckedValues(".filter-section:nth-of-type(6) input[type='checkbox']");
+    const selectedIngredients = getCheckedValues("#ingredientOptions input[type='checkbox']");
+    const excludedIngredients = getCheckedValues("#excludeOptions input[type='checkbox']");
+    const selectedPreferences = getCheckedValues("#preferenceOptions input[type='checkbox']");
+    const selectedUtensils = getCheckedValues("#utensilOptions input[type='checkbox']");
 
     const filtered = allRecipes.filter((recipe) => {
         const costVal = parseFloat(recipe.cost.replace('$', ''));
@@ -82,11 +101,27 @@ function applyFilters() {
     });
 
     renderRecipes(filtered);
+    // Update filter-box appearance if something is selected
+    updateFilterBoxState("costFilterBox", ["costMin", "costMax"]);
+    updateFilterBoxState("timeFilterBox", ["timeMin", "timeMax"]);
+    updateFilterBoxState("ingredientFilterBox", "#ingredientOptions input[type='checkbox']");
+    updateFilterBoxState("excludeFilterBox", "#excludeOptions input[type='checkbox']");
+    updateFilterBoxState("preferenceFilterBox", "#preferenceOptions input[type='checkbox']");
+    updateFilterBoxState("utensilFilterBox", "#utensilOptions input[type='checkbox']");
+
 }
 
 function getCheckedValues(selector) {
-    return Array.from(document.querySelectorAll(selector + ":checked"))
-        .map(cb => cb.value.toLowerCase());
+    return Array.from(document.querySelectorAll(selector + ":checked")).map(cb => cb.value.toLowerCase());
+}
+
+function setCheckedValues(containerId, values = []) {
+    const checkboxes = document.querySelectorAll(`#${containerId} input[type='checkbox']`);
+    checkboxes.forEach(cb => {
+        if (values.includes(cb.value.toLowerCase())) {
+            cb.checked = true;
+        }
+    });
 }
 
 function renderRecipes(recipes) {
@@ -97,9 +132,7 @@ function renderRecipes(recipes) {
         const isFavorited = favoriteRecipes.some(r => r.title === recipe.title);
         const ingredients = recipe.ingredients || [];
         const preferences = recipe.preference || [];
-        const restrictions = recipe.restriction || [];
         const utensils = recipe.utensils || [];
-        const instruction = recipe.instruction || "";
         const isAdded = planner.some(r => r.title === recipe.title);
 
         const card = document.createElement("div");
@@ -116,57 +149,43 @@ function renderRecipes(recipes) {
             <img src="../img/video.png" alt="${recipe.title}" class="recipe-img" />
             <p>${recipe.cost} | ${recipe.time} mins</p>
             <strong>Ingredients:</strong>
-            <ul>
-                ${ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")}
-            </ul>
-            <div style="display: flex; ">
-            <a href="#" class="show-more-link" data-title="${recipe.title}">Show More</a>
-            <button class="${isAdded ? 'rem-recipe' : 'add-recipe'}" onclick="${isAdded ? 'remRecipe' : 'addRecipe'}('${recipe.title}', '${card.id}')">${isAdded ? 'Remove' : 'Add'}</button>
+            <ul>${ingredients.slice(0, 4).map(i => `<li>${i}</li>`).join("")}</ul>
+            <div style="display: flex;">
+                <a href="#" class="show-more-link" data-title="${recipe.title}">Show More</a>
+                <button class="${isAdded ? 'rem-recipe' : 'add-recipe'}" onclick="${isAdded ? 'remRecipe' : 'addRecipe'}('${recipe.title}', '${card.id}')">${isAdded ? 'Remove' : 'Add'}</button>
             </div>
         `;
 
         grid.appendChild(card);
-        
+
         const showMoreLink = card.querySelector(".show-more-link");
-        if (showMoreLink) {
-            showMoreLink.addEventListener("click", (e) => {
-                e.preventDefault(); // prevents "#" from jumping page
-                const title = showMoreLink.getAttribute("data-title");
-                storeFiltersAndNavigate(title); // navigate with filters saved
-            });
-        }
-        
+        showMoreLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            const title = showMoreLink.getAttribute("data-title");
+            storeFiltersAndNavigate(title);
+        });
 
         const star = card.querySelector(".favorite-star");
         star.addEventListener("click", () => {
-            star.classList.toggle("filled");
-        });
-    });
-
-    document.querySelectorAll(".favorite-star").forEach(star => {
-        star.addEventListener("click", () => {
             const title = star.getAttribute("data-title");
-            const isCurrentlyFavorited = favoriteRecipes.some(r => r.title === title);
-    
-            if (isCurrentlyFavorited) {
-                // Remove from favorites
+            const isFavorited = favoriteRecipes.some(r => r.title === title);
+
+            if (isFavorited) {
                 favoriteRecipes = favoriteRecipes.filter(r => r.title !== title);
-                star.innerHTML = "&#9734;"; // hollow star
+                star.innerHTML = "&#9734;";
                 star.classList.remove("filled");
             } else {
-                // Add to favorites
                 const recipe = allRecipes.find(r => r.title === title);
                 if (recipe) {
                     favoriteRecipes.push(recipe);
-                    star.innerHTML = "&#9733;"; // filled star
+                    star.innerHTML = "&#9733;";
                     star.classList.add("filled");
                 }
             }
-    
+
             sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
         });
     });
-    
 }
 
 function addRecipe(title, cardId) {
@@ -193,24 +212,25 @@ function populateSearchFilters(recipes) {
         recipe.utensils.forEach(u => utensilSet.add(normalize(u)));
     });
 
-    populateFilterSection("#search-filter", Array.from(ingredientSet));
-    populateFilterSection(".filter-section:nth-of-type(4)", Array.from(ingredientSet));
-    populateFilterSection(".filter-section:nth-of-type(5)", Array.from(preferenceSet));
-    populateFilterSection(".filter-section:nth-of-type(6)", Array.from(utensilSet));
+    populateFilterSection("ingredientOptions", Array.from(ingredientSet));
+    populateFilterSection("excludeOptions", Array.from(ingredientSet));
+    populateFilterSection("preferenceOptions", Array.from(preferenceSet));
+    populateFilterSection("utensilOptions", Array.from(utensilSet));
 }
 
-function populateFilterSection(selector, items) {
-    const section = document.querySelector(selector);
-    const searchInput = section.querySelector("input[type='text']");
-
-    const wrapper = document.createElement("div");
-    wrapper.classList.add("filter-options");
+function populateFilterSection(containerId, items) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
 
     const uniqueItems = [...new Set(items.map(item => normalize(item)))];
+    uniqueItems.sort();
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "filter-options-wrapper";
 
     let expanded = false;
 
-    uniqueItems.sort().forEach((item, index) => {
+    uniqueItems.forEach((item, index) => {
         const label = document.createElement("label");
         const displayText = item.charAt(0).toUpperCase() + item.slice(1);
         label.innerHTML = `<input type='checkbox' value='${item}'> ${displayText}`;
@@ -240,68 +260,75 @@ function populateFilterSection(selector, items) {
             label.style.display = index < 2 ? "block" : "none";
         });
         lessBtn.style.display = "none";
-        moreBtn.style.display = uniqueItems.length > 2 ? "block" : "none";
+        moreBtn.style.display = "block";
         expanded = false;
     });
 
-    section.appendChild(lessBtn);
-    section.appendChild(wrapper);
-    section.appendChild(moreBtn);
+    container.appendChild(wrapper);
+    container.appendChild(moreBtn);
+    container.appendChild(lessBtn);
 
-    // Live filter
-    searchInput.addEventListener("input", function () {
-        const term = this.value.toLowerCase();
-        let matches = 0;
-        Array.from(wrapper.children).forEach((label, index) => {
-            const text = label.textContent.toLowerCase();
-            const match = text.includes(term);
-            label.style.display = match ? "block" : "none";
-            if (match) matches++;
-        });
-        if (!expanded) {
-            moreBtn.style.display = matches > 2 ? "block" : "none";
-            lessBtn.style.display = "none";
-        }
-        if (term === "") {
-            wrapper.querySelectorAll("label").forEach((label, index) => {
-                label.style.display = index < 2 ? "block" : "none";
+    const searchInput = container.previousElementSibling;
+    if (searchInput && searchInput.classList.contains("search-input")) {
+        searchInput.addEventListener("input", function () {
+            const term = this.value.toLowerCase();
+            let matches = 0;
+            wrapper.querySelectorAll("label").forEach((label) => {
+                const match = label.textContent.toLowerCase().includes(term);
+                label.style.display = match ? "block" : "none";
+                if (match) matches++;
             });
-            moreBtn.style.display = uniqueItems.length > 2 ? "block" : "none";
-            lessBtn.style.display = "none";
-            expanded = false;
-        }
-    });
+
+            if (!expanded) {
+                moreBtn.style.display = matches > 2 ? "block" : "none";
+                lessBtn.style.display = "none";
+            }
+
+            if (term === "") {
+                wrapper.querySelectorAll("label").forEach((label, index) => {
+                    label.style.display = index < 2 ? "block" : "none";
+                });
+                moreBtn.style.display = uniqueItems.length > 2 ? "block" : "none";
+                lessBtn.style.display = "none";
+                expanded = false;
+            }
+        });
+    }
+}
+
+function storeFiltersAndNavigate(title) {
+    const costMin = document.getElementById("costMin").value;
+    const costMax = document.getElementById("costMax").value;
+    const timeMin = document.getElementById("timeMin").value;
+    const timeMax = document.getElementById("timeMax").value;
+
+    sessionStorage.setItem("filters", JSON.stringify({
+        costMin, costMax, timeMin, timeMax,
+        ingredients: getCheckedValues("#ingredientOptions input[type='checkbox']"),
+        excludes: getCheckedValues("#excludeOptions input[type='checkbox']"),
+        preferences: getCheckedValues("#preferenceOptions input[type='checkbox']"),
+        utensils: getCheckedValues("#utensilOptions input[type='checkbox']")
+    }));
+
+    window.location.href = `recipe.html?title=${encodeURIComponent(title)}`;
+}
+
+function updateFilterBoxState(filterBoxId, inputSelectors) {
+    const box = document.getElementById(filterBoxId);
+    let hasValue = false;
+
+    if (Array.isArray(inputSelectors)) {
+        hasValue = inputSelectors.some(id => {
+            const val = document.getElementById(id)?.value;
+            return val && val.trim() !== "" && parseFloat(val) !== 0;
+        });
+    } else {
+        hasValue = document.querySelectorAll(inputSelectors + ":checked").length > 0;
+    }
+
+    box.classList.toggle("applied", hasValue);
 }
 
 function normalize(str) {
     return str.toLowerCase().trim().replace(/s$/, '');
 }
-
-function storeFiltersAndNavigate(title) {
-    const costInputs = document.querySelectorAll("input[type='number']");
-    const costMin = costInputs[0].value;
-    const costMax = costInputs[1].value;
-    const timeMin = costInputs[2].value;
-    const timeMax = costInputs[3].value;
-
-    sessionStorage.setItem("filters", JSON.stringify({
-        costMin, costMax, timeMin, timeMax,
-        ingredients: getCheckedValues("#search-filter input[type='checkbox']"),
-        excludes: getCheckedValues(".filter-section:nth-of-type(4) input[type='checkbox']"),
-        preferences: getCheckedValues(".filter-section:nth-of-type(5) input[type='checkbox']"),
-        utensils: getCheckedValues(".filter-section:nth-of-type(6) input[type='checkbox']")
-    }));
-
-    // Navigate to the recipe page
-    window.location.href = `recipe.html?title=${encodeURIComponent(title)}`;
-}
-
-function setCheckedValues(selector, values = []) {
-    const checkboxes = document.querySelectorAll(selector + " input[type='checkbox']");
-    checkboxes.forEach(cb => {
-        if (values.includes(cb.value.toLowerCase())) {
-            cb.checked = true;
-        }
-    });
-}
-

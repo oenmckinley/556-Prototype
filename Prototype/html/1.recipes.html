@@ -24,66 +24,57 @@
         </nav>
     </header>
     <div class="container">
-        <aside class="sidebar">
-            <button class="btn_filters" type="button">Apply all Filters</button>
-            <button class="btn_filters" type="button">Clear all Filters</button>
-
-            <div class="filter-section">
-                <h3>$ By Cost </h3>
-                <input type="number" placeholder="min"> to
-                <input type="number" placeholder="max">
-            </div>
-
-            <div class="filter-section">
-                <h3>⏱ By Cooking Time (mins)</h3>
-                <input type="number" placeholder="min"> to
-                <input type="number" placeholder="max"> 
-            </div>
-
-            <div class="filter-section" id="search-filter">
-                <h3>📋 By Ingredients</h3>
-                <div class="search-bar-wrapper">
-                    <input type="text" class="search-input" placeholder="Search"> <i
-                        class="bi bi-search search-icon"></i>
-                </div>
-                <!-- Add more as needed -->
-            </div>
-
-            <div class="filter-section">
-
-                <h3>🚫 By Exclude</h3>
-
-                <div class="search-bar-wrapper">
-                    <input type="text" class="search-input" placeholder="Search"> <i
-                        class="bi bi-search search-icon"></i>
-                </div>
-
-            </div>
-
-            <div class="filter-section">
-                <h3>❤️ By Preference</h3>
-                <div class="search-bar-wrapper">
-                    <input type="text" class="search-input" placeholder="Search"> <i
-                        class="bi bi-search search-icon"></i>
-                </div>
-
-            </div>
-
-            <div class="filter-section">
-                <h3>🛠️ By Tools/Utensils</h3>
-                <div class="search-bar-wrapper">
-                    <input type="text" class="search-input" placeholder="Search"> <i
-                        class="bi bi-search search-icon"></i>
-                </div>
-
-            </div>
-        </aside>
         <main class="content">
             <div class="search-bar">
                 <input type="text" id="search" placeholder="Search Recipe">
                 <button type="button">🔍</button>
             </div>
-
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <div class="filter-box" id="costFilterBox">💵 Cost ▼</div>
+                    <div class="filter-dropdown" id="costDropdown">
+                        <input type="number" id="costMin" placeholder="Min $">
+                        <input type="number" id="costMax" placeholder="Max $">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-box" id="timeFilterBox">⏱ Time ▼</div>
+                    <div class="filter-dropdown" id="timeDropdown">
+                        <input type="number" id="timeMin" placeholder="Min mins">
+                        <input type="number" id="timeMax" placeholder="Max mins">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-box" id="ingredientFilterBox">📋 Ingredients ▼</div>
+                    <div class="filter-dropdown" id="ingredientDropdown">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <div id="ingredientOptions" class="filter-options"></div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-box" id="excludeFilterBox">🚫 Exclude ▼</div>
+                    <div class="filter-dropdown" id="excludeDropdown">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <div id="excludeOptions" class="filter-options"></div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-box" id="preferenceFilterBox">❤️ Preference ▼</div>
+                    <div class="filter-dropdown" id="preferenceDropdown">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <div id="preferenceOptions" class="filter-options"></div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-box" id="utensilFilterBox">🛠️ Utensils ▼</div>
+                    <div class="filter-dropdown" id="utensilDropdown">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <div id="utensilOptions" class="filter-options"></div>
+                    </div>
+                </div>
+            </div>
+        
             <div class="recipe-grid" id="recipeGrid">
             </div>
         </main>
