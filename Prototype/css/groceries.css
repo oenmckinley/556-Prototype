@@ -6,7 +6,7 @@
 .section-groceries {
     display: inline-block;
     vertical-align: middle;
-    height: 900px;
+    height: 550px;
 }
 
 .sub-groceries {
@@ -26,7 +26,7 @@
 
 .recipe-groceries {
     background-color: #fff7ee;
-    height: 900px;
+    height: 550px;
     width: 100%;
     border-radius: 16px;
 }
@@ -55,12 +55,20 @@
     display: inline-block;
     overflow-x: scroll;
     margin: 5px;
-    min-height: 100px;
-    max-width: 400px;
+    height: 50px;
 }
 
+.no-groceries-card {
+    display: inline-block;
+    overflow-x: scroll;
+    margin: 5px;
+    height: 50px;
+    border-color: white;
+}
+
+
 .list-groceries {
-    height: 700px;
+    height: 350px;
     padding: 5%;
 }
 
@@ -71,7 +79,15 @@
 }
 
 .download-link {
+    color: white;
+    border: 2px solid blue;
+    background-color: blue;
+}
+
+.download-link:hover {
     color: blue;
+    border: 2px solid blue;
+    background-color: white;
 }
 
 #gl {

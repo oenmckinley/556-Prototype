@@ -99,7 +99,7 @@ function addRecipe(title, cardId) {
     const recipe = allRecipes.find(r => r.title === title);
     if (!addedRecipes.some(r => r.title === title)) addedRecipes.push(recipe);
     sessionStorage.setItem("addedRecipes", JSON.stringify(addedRecipes));
-    document.getElementById(cardId).querySelector("button").outerHTML = `<button class="rem-recipe" onclick="remRecipe('${title}', '${cardId}')">Remove</button>`;
+    //document.getElementById(cardId).querySelector("button").outerHTML = `<button class="rem-recipe" onclick="remRecipe('${title}', '${cardId}')">Remove</button>`;
     init();
 }
 
@@ -138,12 +138,12 @@ function renderGroceries(recipes = allRecipes) {
             const card = document.createElement("div");
             card.className = "recipe-card groceries-card";
             card.id = "addcard" + i.toString();
-
-            card.innerHTML = `
-          <h4>${recipe.title}</h4>
-          <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
-          ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
-            `;
+            card.innerHTML = `<h4>${recipe.title}</h4>`;
+            //card.innerHTML = `
+          //<h4>${recipe.title}</h4>
+          //<p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
+          //${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
+            //`;
 
             //console.log(added(title))
             grid1.appendChild(card);
@@ -153,7 +153,7 @@ function renderGroceries(recipes = allRecipes) {
         });
     } else {
         const card = document.createElement("div");
-        card.className = "recipe-card groceries-card";
+        card.className = "recipe-card no-groceries-card";
 
         card.innerHTML = `<h4>No Added Recipes!</h4>`;
 
@@ -190,11 +190,13 @@ function renderGroceries(recipes = allRecipes) {
                     card.className = "recipe-card groceries-card";
                     card.id = "weekcard" + n.toString();
 
-                    card.innerHTML = `
-                  <h4>${recipe.title}</h4>
-                  <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
-                  ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
-                    `;
+                    card.innerHTML = `<h4>${recipe.title}</h4>`;
+
+                    //card.innerHTML = `
+                  //<h4>${recipe.title}</h4>
+                  //<p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
+                  //${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
+                    //`;
 
                     grid2.appendChild(card);
 
@@ -205,9 +207,9 @@ function renderGroceries(recipes = allRecipes) {
         });
     } else {
         const card = document.createElement("div");
-        card.className = "recipe-card groceries-card";
+        card.className = "recipe-card no-groceries-card";
 
-        card.innerHTML = `<h4>No Added Recipes!</h4>`;
+        card.innerHTML = `<h4>No Planned Recipes!</h4>`;
 
         grid2.appendChild(card);
     }
@@ -221,20 +223,22 @@ function renderGroceries(recipes = allRecipes) {
             card.className = "recipe-card groceries-card";
             card.id = "rangecard" + n.toString();
 
-            card.innerHTML = `
-          <h4>${recipe.title}</h4>
-          <p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
-          ${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
-            `;
+            card.innerHTML = `<h4>${recipe.title}</h4>`;
+
+            //card.innerHTML = `
+          //<h4>${recipe.title}</h4>
+          //<p><strong>${recipe.cost}</strong> • ${recipe.time} mins</p>
+          //${added(title) ? `<button class="rem-recipe" onclick="remRecipe('${title}', '${card.id}')">Remove</button>` : `<button class="add-recipe" onclick="addRecipe('${title}', '${card.id}')">Add</button>`}
+            //`;
 
             grid3.appendChild(card);
             n++;
         });
     } else {
         const card = document.createElement("div");
-        card.className = "recipe-card groceries-card";
+        card.className = "recipe-card no-groceries-card";
 
-        card.innerHTML = `<h4>No Added Recipes!</h4>`;
+        card.innerHTML = `<h4>No Planned Recipes!</h4>`;
 
         grid3.appendChild(card);
     }
