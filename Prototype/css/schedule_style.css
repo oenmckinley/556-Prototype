@@ -352,8 +352,3 @@
     cursor: pointer;
 }
 
-.today-highlight {
-    border: 2px solid #4CAF50 !important;
-    background-color: #e6f9e6 !important;
-    border-radius: 6px;
-}
