@@ -313,20 +313,25 @@ function populateFilterSection(containerId, items) {
     }
 }
 
+// function storeFiltersAndNavigate(title) {
+//     const costMin = document.getElementById("costMin").value;
+//     const costMax = document.getElementById("costMax").value;
+//     const timeMin = document.getElementById("timeMin").value;
+//     const timeMax = document.getElementById("timeMax").value;
+
+//     sessionStorage.setItem("filters", JSON.stringify({
+//         costMin, costMax, timeMin, timeMax,
+//         ingredients: getCheckedValues("#ingredientOptions input[type='checkbox']"),
+//         excludes: getCheckedValues("#excludeOptions input[type='checkbox']"),
+//         preferences: getCheckedValues("#preferenceOptions input[type='checkbox']"),
+//         utensils: getCheckedValues("#utensilOptions input[type='checkbox']")
+//     }));
+
+//     window.location.href = `recipe.html?title=${encodeURIComponent(title)}`;
+// }
+
 function storeFiltersAndNavigate(title) {
-    const costMin = document.getElementById("costMin").value;
-    const costMax = document.getElementById("costMax").value;
-    const timeMin = document.getElementById("timeMin").value;
-    const timeMax = document.getElementById("timeMax").value;
-
-    sessionStorage.setItem("filters", JSON.stringify({
-        costMin, costMax, timeMin, timeMax,
-        ingredients: getCheckedValues("#ingredientOptions input[type='checkbox']"),
-        excludes: getCheckedValues("#excludeOptions input[type='checkbox']"),
-        preferences: getCheckedValues("#preferenceOptions input[type='checkbox']"),
-        utensils: getCheckedValues("#utensilOptions input[type='checkbox']")
-    }));
-
+    sessionStorage.setItem("selectedTitle", title);  // This should store the selected title.
     window.location.href = `recipe.html?title=${encodeURIComponent(title)}`;
 }
 
@@ -358,4 +363,55 @@ function getVideoThumbnail(url) {
 
 function normalize(str) {
     return str.toLowerCase().trim().replace(/s$/, '');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("../recipes_with_instructions.json")
+      .then(res => res.json())
+      .then(recipes => {
+        allRecipes = recipes;
+  
+        // 1) persist for detail page
+        sessionStorage.setItem("allRecipes", JSON.stringify(allRecipes));
+  
+        // 2) normal list render
+        renderRecipes(allRecipes);
+        populateSearchFilters(allRecipes);
+  
+        // 3) if we’re on recipe.html?title=…, render that recipe now
+        const params = new URLSearchParams(window.location.search);
+        const detailTitle = params.get("title");
+        if (detailTitle && window.location.pathname.endsWith("recipe.html")) {
+          const detailRecipe = allRecipes.find(r => r.title === detailTitle);
+          if (detailRecipe) renderRecipeDetail(detailRecipe);
+          else console.error("Recipe not found:", detailTitle);
+        }
+  
+        // …then applyFilters() etc
+      });
+  });
+  
+
+function renderRecipeDetail(recipe) {
+    const container = document.getElementById("recipeDetail");
+    if (!container) return;
+
+    const ingredientsList = recipe.ingredients.map(i => `<li>${i}</li>`).join("");
+    const preferences = recipe.preference?.join(", ") || "None";
+    const utensils = recipe.utensils?.join(", ") || "None";
+
+    const thumbnail = getVideoThumbnail(recipe.img);
+
+    container.innerHTML = `
+        <h2>${recipe.title}</h2>
+        <img src="${thumbnail}" class="img-fluid" onerror="this.src='../img/video.png'" />
+        <p><strong>Cost:</strong> ${recipe.cost}</p>
+        <p><strong>Time:</strong> ${recipe.time} minutes</p>
+        <p><strong>Preferences:</strong> ${preferences}</p>
+        <p><strong>Utensils:</strong> ${utensils}</p>
+        <h4>Ingredients</h4>
+        <ul>${ingredientsList}</ul>
+        <h4>Instructions</h4>
+        <p>${recipe.instruction}</p>
+    `;
 }

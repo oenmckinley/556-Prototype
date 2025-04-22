@@ -87,6 +87,81 @@ function add_drop_feature(meal_div){
     });
 }
 
+function update_schedule_meals(element,event){
+    const hover_div = document.getElementsByClassName('meal_hover_div')[0];
+    hover_div.style.display = 'block';
+    hover_div.style.top = event.y+'px';
+    hover_div.style.left = event.x+'px';
+    hover_div.getElementsByClassName('scheduled_meals')[0].innerHTML = '';
+    if(event.x+hover_div.offsetWidth>=window.innerWidth){
+        hover_div.style.left = (window.innerWidth-hover_div.offsetWidth)+'px';
+    }
+    if(event.y+hover_div.offsetHeight>=window.innerHeight-50){
+        hover_div.style.top = (window.innerHeight-hover_div.offsetHeight-50)+'px';
+    }
+    const calendar_date = element.parentNode.getElementsByClassName('full_calendar_date')[0].innerHTML;
+    const meal_time = element.getElementsByClassName('meal_time')[0].innerHTML;
+    const meals_name = element.getElementsByClassName('meal_name')[0].innerHTML;
+
+    // Add meals to scheduled_meals
+    if((!meals_name.startsWith('Add Breakfast'))&&(!meals_name.startsWith('Add Lunch'))&&(!meals_name.startsWith('Add Dinner'))){
+        let all_meals = meals_name.split(', ');
+        console.log(all_meals);
+        const scheduled_meals = hover_div.getElementsByClassName('scheduled_meals')[0];
+        hover_div.getElementsByClassName('meal_date')[0].innerHTML = calendar_date
+        hover_div.getElementsByClassName('meal_time')[0].innerHTML = meal_time
+
+        for(let i=0;i<all_meals.length;i++){
+            const new_meal = document.createElement('div');
+            new_meal.classList.add('scheduled_meal');
+            new_meal.style.top = `${i*20+2}%`;
+            const newp = document.createElement('p');
+            newp.classList.add('scheduled_meal_name');
+            newp.innerHTML = all_meals[i];
+            newp.addEventListener('click',(event)=>{
+                const param = all_meals[i];
+                const url = `recipe.html?title=${encodeURIComponent(param)}`;
+                window.location.href = url;
+            });
+            new_meal.appendChild(newp);
+
+            newi = document.createElement('i');
+            newi.classList.add('bi');
+            newi.classList.add('bi-trash');
+            newi.style.position = 'absolute';
+            newi.style.left = '90%';
+            newi.style.top = '30%';
+            newi.style.width = '5%';
+            newi.addEventListener('click',(e)=>{
+                let clear_date = hover_div.getElementsByClassName('meal_date')[0].innerHTML;
+                let clear_time = hover_div.getElementsByClassName('meal_time')[0].innerHTML;
+                scheduled_meals_data[clear_date][clear_time].splice(i,1);
+                element.getElementsByClassName('meal_name')[0].innerHTML = scheduled_meals_data[clear_date][clear_time].join(', ');
+                if(element.getElementsByClassName('meal_name')[0].innerHTML==''){
+                    element.style.background = 'none';
+                    if(clear_time=='breakfast')element.getElementsByClassName('meal_name')[0].innerHTML='Add Breakfast';
+                    if(clear_time=='lunch')element.getElementsByClassName('meal_name')[0].innerHTML='Add Lunch';
+                    if(clear_time=='dinner')element.getElementsByClassName('meal_name')[0].innerHTML='Add Dinner';
+                }
+                if(scheduled_meals_data[clear_date][clear_time].length==0){
+                    delete scheduled_meals_data[clear_date][clear_time];
+                }
+                sessionStorage.setItem("scheduledRecipes", JSON.stringify(scheduled_meals_data));
+                // alert('???');
+                // element.getElementsByClassName('meal_name')[0].innerHTML
+                // update_schedule(new Date(current_date_start.getTime()));
+                update_schedule_meals(element,event);
+            });
+            new_meal.appendChild(newi);
+
+            scheduled_meals.appendChild(new_meal);
+            new_meal.addEventListener('mouseenter',(event)=>{
+                new_meal.style.cursor = 'pointer';
+            });
+        }
+    }
+}
+
 function update_schedule(dayone){
 
     const date_range = document.getElementsByClassName('schedule_date_selection')[0];
@@ -159,53 +234,12 @@ function update_schedule(dayone){
     let calendar_meals_list = Array.from(calendar_meals);
     calendar_meals_list.forEach(element => {
         element.addEventListener('click', (event) => {
-            const hover_div = document.getElementsByClassName('meal_hover_div')[0];
-            hover_div.style.display = 'block';
-            hover_div.style.top = event.y+'px';
-            hover_div.style.left = event.x+'px';
-            hover_div.getElementsByClassName('scheduled_meals')[0].innerHTML = '';
-            if(event.x+hover_div.offsetWidth>=window.innerWidth){
-                hover_div.style.left = (window.innerWidth-hover_div.offsetWidth)+'px';
-            }
-            if(event.y+hover_div.offsetHeight>=window.innerHeight-50){
-                hover_div.style.top = (window.innerHeight-hover_div.offsetHeight-50)+'px';
-            }
-            const calendar_date = element.parentNode.getElementsByClassName('full_calendar_date')[0].innerHTML;
-            const meal_time = element.getElementsByClassName('meal_time')[0].innerHTML;
-            const meals_name = element.getElementsByClassName('meal_name')[0].innerHTML;
-
-            // Add meals to scheduled_meals
-            if((!meals_name.startsWith('Add Breakfast'))&&(!meals_name.startsWith('Add Lunch'))&&(!meals_name.startsWith('Add Dinner'))){
-                let all_meals = meals_name.split(', ');
-                console.log(all_meals);
-                const scheduled_meals = hover_div.getElementsByClassName('scheduled_meals')[0];
-                hover_div.getElementsByClassName('meal_date')[0].innerHTML = calendar_date
-                hover_div.getElementsByClassName('meal_time')[0].innerHTML = meal_time
-
-                for(let i=0;i<all_meals.length;i++){
-                    const new_meal = document.createElement('div');
-                    new_meal.classList.add('scheduled_meal');
-                    new_meal.style.top = `${i*20+2}%`;
-                    const newp = document.createElement('p');
-                    newp.classList.add('scheduled_meal_name');
-                    newp.innerHTML = all_meals[i];
-                    new_meal.appendChild(newp);
-                    scheduled_meals.appendChild(new_meal);
-                    new_meal.addEventListener('click',(event)=>{
-                        const param = all_meals[i];
-                        const url = `recipe.html?title=${encodeURIComponent(param)}`;
-                        window.location.href = url;
-                    });
-                    new_meal.addEventListener('mouseenter',(event)=>{
-                        new_meal.style.cursor = 'pointer';
-                    });
-                }
-            }
+            update_schedule_meals(element,event);
         })
     });
     const hover_div = document.getElementsByClassName('meal_hover_div')[0];
     document.addEventListener('click', function(event) {
-        if (!hover_div.contains(event.target) && event.target.className!=='calendar_meals' && event.target.className!=='meal_name') {
+        if (!hover_div.contains(event.target) && event.target.className!=='calendar_meals' && event.target.className!=='meal_name' && event.target.className!=='bi bi-trash') {
             hover_div.style.display = 'none';
         };
     });
@@ -221,6 +255,53 @@ function update_schedule(dayone){
     //     const url = `1.recipes.html`;
     //     window.location.href = url;
     // });
+}
+
+function update_added_recipe(){
+
+    let added_recipes = [];
+    addedRecipes.forEach((recipe) =>{
+        added_recipes.push(recipe.title);
+        });
+
+    added_recipes_data = added_recipes;
+
+    const added_recipes_div = document.getElementsByClassName('added_recipes_list')[0];
+    added_recipes_div.innerHTML = '';
+
+    // list all the added recipes
+    for (let index = 0; index < added_recipes.length; index++) {
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('recipes');
+        newDiv.draggable = true;
+        newDiv.style.top = `${Math.floor(index/6)*20+3}%`;
+        newDiv.style.left = `${(index%6)*16+3}%`;
+        const newp = document.createElement('p');
+        newp.classList.add('recipe_name');
+        newp.innerHTML = added_recipes[index];
+        newDiv.appendChild(newp);
+
+        newi = document.createElement('i');
+        newi.classList.add('bi');
+        newi.classList.add('bi-trash');
+        newi.style.position = 'absolute';
+        newi.style.left = '90%';
+        newi.style.top = '30%';
+        newi.style.width = '5%';
+        newi.addEventListener('click',(event)=>{
+            addedRecipes = addedRecipes.filter(recipe => recipe.title !== added_recipes[index]);
+            sessionStorage.setItem("addedRecipes", JSON.stringify(addedRecipes));
+            update_added_recipe();
+        });
+        newDiv.appendChild(newi);
+
+        added_recipes_div.appendChild(newDiv);
+
+        newDiv.addEventListener('dragstart',(event)=>{
+            DRAG_NAME = newp.innerHTML;
+        });
+
+    };
 }
 
 // function saveJsonToFile(data, filename = "data.json") {
@@ -239,35 +320,7 @@ function update_schedule(dayone){
 
 window.onload = function() {
 
-    // load added recipes
-
-    let added_recipes = [];
-    addedRecipes.forEach((recipe) =>{
-        added_recipes.push(recipe.title);
-        });
-
-    added_recipes_data = added_recipes;
-
-    const added_recipes_div = document.getElementsByClassName('added_recipes_list')[0];
-
-    // list all the added recipes
-    for (let index = 0; index < added_recipes.length; index++) {
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('recipes');
-        newDiv.draggable = true;
-        newDiv.style.top = `${Math.floor(index/6)*20+3}%`;
-        newDiv.style.left = `${(index%6)*16+3}%`;
-        const newp = document.createElement('p');
-        newp.classList.add('recipe_name');
-        newp.innerHTML = added_recipes[index];
-        newDiv.appendChild(newp);
-        added_recipes_div.appendChild(newDiv);
-
-        newDiv.addEventListener('dragstart',(event)=>{
-            DRAG_NAME = newp.innerHTML;
-        });
-
-    }
+    update_added_recipe();
 
     // add click event, to show a floating div
     let recipes = document.getElementsByClassName('recipes');
