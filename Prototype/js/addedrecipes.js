@@ -119,7 +119,7 @@ function getRangeGroceries(recipes, start, end) {
         const title = recipe.title || "";
         const ingredients = recipe.ingredients || [];
 
-        let curr = start;
+        let curr = new Date(start.getTime());
         //console.log(curr)
         //console.log(end)
         //console.log(curr <= end)
@@ -161,7 +161,7 @@ function getRangeRecipes(recipes, start, end) {
     recipes.forEach((recipe) => {
         const title = recipe.title || "";
 
-        let curr = start;
+        let curr = new Date(start.getTime());
         while(curr.getDate() <= end.getUTCDate()) {
             let key = `${curr.getFullYear()}-${curr.getMonth()+1}-${curr.getDate()}`
             //console.log(start)

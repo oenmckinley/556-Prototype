@@ -342,6 +342,13 @@ window.onload = function() {
             let default_date = `${(new Date()).getFullYear()}-${(new Date()).getMonth() < 9 ? "0" + ((new Date()).getMonth()+1).toString() : ((new Date()).getMonth()+1).toString()}-${(new Date()).getDate()}`;
             document.getElementById('date_from').value = default_date;
             document.getElementById('date_to').value = default_date;
+            document.getElementById('date_from').addEventListener('change',(event)=>{
+                const date1 = new Date(document.getElementById('date_from').value);
+                const date2 = new Date(document.getElementById('date_to').value);
+                if(date2<date1){
+                    document.getElementById('date_to').value = document.getElementById('date_from').value;
+                }
+            });
             document.getElementById('to_breakfast').checked = false;
             document.getElementById('to_lunch').checked = false;
             document.getElementById('to_dinner').checked = false;
