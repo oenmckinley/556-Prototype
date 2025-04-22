@@ -119,6 +119,8 @@ function renderGroceries(recipes = allRecipes) {
     grid2.innerHTML = "";
     grid3.innerHTML = "";
 
+    if (getDateFromDiv("date-start") > getDateFromDiv("date-end")) document.getElementById("date-end").value = document.getElementById("date-start").value
+
     let start = getDateFromDiv("date-start");
     let end = getDateFromDiv("date-end");
 
