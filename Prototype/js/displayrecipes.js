@@ -1,3 +1,4 @@
+let planner = JSON.parse(sessionStorage.getItem("addedRecipes")) || []
 let favoriteRecipes = JSON.parse(sessionStorage.getItem("favoriteRecipes")) || [];
 
 window.onload = function () {
@@ -19,6 +20,9 @@ function renderFavoriteRecipes(container) {
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
         const cardId = `recipe-${index}`;
+        recipeCard.id = cardId;
+        const isAdded = planner.some(r => r.title === recipe.title);
+        const card = document.createElement("div");
     
         recipeCard.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -42,6 +46,10 @@ function renderFavoriteRecipes(container) {
             </ul>
             <div style="display: flex;">
                 <a href="#" class="show-more-link" data-title="${recipe.title}">Show More</a>
+                <button class="${isAdded ? 'rem-recipe' : 'add-recipe'}" data-title="${recipe.title}" data-cardid="${cardId}">
+                    ${isAdded ? 'Remove' : 'Add'}
+                </button>
+
             </div>
         `;
     
@@ -69,6 +77,26 @@ function renderFavoriteRecipes(container) {
         });
     
         container.appendChild(recipeCard);
+        // Add/Remove Button Click
+        const addRemoveBtn = recipeCard.querySelector("button");
+        addRemoveBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevents navigating to recipe page
+
+            const title = e.currentTarget.getAttribute("data-title");
+            const cardId = e.currentTarget.getAttribute("data-cardid");
+
+            if (e.currentTarget.classList.contains("add-recipe")) {
+                addRecipe(title, cardId);
+                e.currentTarget.classList.remove("add-recipe");
+                e.currentTarget.classList.add("rem-recipe");
+                e.currentTarget.textContent = "Remove";
+            } else {
+                remRecipe(title, cardId);
+                e.currentTarget.classList.remove("rem-recipe");
+                e.currentTarget.classList.add("add-recipe");
+                e.currentTarget.textContent = "Add";
+            }
+        });
     
         // Favorite star click listener
         const star = recipeCard.querySelector(".favorite-star");
@@ -90,8 +118,19 @@ function renderFavoriteRecipes(container) {
             sessionStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
             renderFavoriteRecipes(container); // optional, if you want to refresh the view
         });
+        card.addEventListener("click", (e) => {
+            // Prevent button or favorite star clicks from triggering navigation
+            if (
+                e.target.closest(".add-recipe") ||
+                e.target.closest(".rem-recipe") ||
+                e.target.closest(".favorite-star") ||
+                e.target.closest(".show-more-link") 
+            ) {
+                return;
+            }
+            storeFiltersAndNavigate(recipe.title);
+        });
     });
-    
 }
 
 function removeRecipe(index, container) {
@@ -108,6 +147,32 @@ function getVideoThumbnail(url) {
     }
     return "../img/video.png";
 }
+
+// function addRecipe(title, cardId) {
+//     const recipe = allRecipes.find(r => r.title === title);
+//     if (!planner.some(r => r.title === title)) planner.push(recipe);
+//     sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
+//     document.getElementById(cardId).querySelector("button").outerHTML = `<button class="rem-recipe" onclick="remRecipe('${title}', '${cardId}')">Remove</button>`;
+// }
+
+// function remRecipe(title, cardId) {
+//     planner = planner.filter(r => r.title !== title);
+//     sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
+//     document.getElementById(cardId).querySelector("button").outerHTML = `<button class="add-recipe" onclick="addRecipe('${title}', '${cardId}')">Add</button>`;
+// }
+
+function addRecipe(title, cardId) {
+    const allRecipes = JSON.parse(sessionStorage.getItem("allRecipes")) || [];
+    const recipe = allRecipes.find(r => r.title === title);
+    if (!planner.some(r => r.title === title)) planner.push(recipe);
+    sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
+}
+
+function remRecipe(title, cardId) {
+    planner = planner.filter(r => r.title !== title);
+    sessionStorage.setItem("addedRecipes", JSON.stringify(planner));
+}
+
 
 function storeFiltersAndNavigate(title) {
     sessionStorage.setItem("selectedTitle", title);
